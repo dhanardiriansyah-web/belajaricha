@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Perkalian dan Pembagian - Kelas 4 SD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script id="Math-Jax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .content-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .section-title {
+            font-size: 1.875rem; /* 30px */
+            font-weight: 700;
+            color: #dc2626; /* Softer Red-600 */
+            border-bottom: 3px solid #f87171; /* Softer Red-400 */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .item-container {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .item-container:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .question-text {
+            line-height: 1.6;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        .answer-input {
+            width: 8rem;
+            padding: 0.5rem;
+            border: 2px solid #d1d5db;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+        }
+        .answer-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.4); /* Softer red-400 shadow */
+            border-color: #f87171; /* Softer red-400 */
+        }
+        .correct {
+            background-color: #f0fdf4; /* green-50 */
+            border-color: #4ade80; /* green-400 */
+            color: #166534; /* green-800 */
+        }
+        .incorrect {
+            background-color: #fef2f2; /* red-50 */
+            border-color: #f87171; /* Softer red-400 */
+            color: #dc2626; /* Softer red-600 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-10">
+             <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_tiy3nf_6017.png" alt="Math Specialist Logo" class="mx-auto h-28 mb-4">
+            <h1 class="text-3xl md:text-4xl font-bold text-red-600">Latihan Perkalian & Pembagian</h1>
+            <p class="text-gray-600 mt-2">Untuk Siswa Kelas 4 SD</p>
+        </header>
+
+        <main>
+            <!-- Multiplication Section -->
+            <section class="content-card">
+                <h2 class="section-title">Perkalian (50 Soal)</h2>
+                
+                <!-- Satuan dengan Satuan -->
+                <div class="item-container"><p class="question-text">1.  $7 \times 8 = $</p><input type="number" class="answer-input" data-answer="56"></div>
+                <div class="item-container"><p class="question-text">2.  $6 \times 9 = $</p><input type="number" class="answer-input" data-answer="54"></div>
+                <div class="item-container"><p class="question-text">3.  $5 \times 7 = $</p><input type="number" class="answer-input" data-answer="35"></div>
+                <div class="item-container"><p class="question-text">4.  $8 \times 4 = $</p><input type="number" class="answer-input" data-answer="32"></div>
+                <div class="item-container"><p class="question-text">5.  $9 \times 3 = $</p><input type="number" class="answer-input" data-answer="27"></div>
+                <div class="item-container"><p class="question-text">6.  $4 \times 6 = $</p><input type="number" class="answer-input" data-answer="24"></div>
+                <div class="item-container"><p class="question-text">7.  $3 \times 8 = $</p><input type="number" class="answer-input" data-answer="24"></div>
+                <div class="item-container"><p class="question-text">8.  $7 \times 6 = $</p><input type="number" class="answer-input" data-answer="42"></div>
+                <div class="item-container"><p class="question-text">9.  $9 \times 9 = $</p><input type="number" class="answer-input" data-answer="81"></div>
+                <div class="item-container"><p class="question-text">10. $8 \times 8 = $</p><input type="number" class="answer-input" data-answer="64"></div>
+
+                <!-- Puluhan dengan Satuan -->
+                <div class="item-container"><p class="question-text">11. $15 \times 5 = $</p><input type="number" class="answer-input" data-answer="75"></div>
+                <div class="item-container"><p class="question-text">12. $23 \times 4 = $</p><input type="number" class="answer-input" data-answer="92"></div>
+                <div class="item-container"><p class="question-text">13. $37 \times 3 = $</p><input type="number" class="answer-input" data-answer="111"></div>
+                <div class="item-container"><p class="question-text">14. $42 \times 6 = $</p><input type="number" class="answer-input" data-answer="252"></div>
+                <div class="item-container"><p class="question-text">15. $58 \times 7 = $</p><input type="number" class="answer-input" data-answer="406"></div>
+                <div class="item-container"><p class="question-text">16. $64 \times 8 = $</p><input type="number" class="answer-input" data-answer="512"></div>
+                <div class="item-container"><p class="question-text">17. $71 \times 9 = $</p><input type="number" class="answer-input" data-answer="639"></div>
+                <div class="item-container"><p class="question-text">18. $86 \times 2 = $</p><input type="number" class="answer-input" data-answer="172"></div>
+                <div class="item-container"><p class="question-text">19. $95 \times 5 = $</p><input type="number" class="answer-input" data-answer="475"></div>
+                <div class="item-container"><p class="question-text">20. $77 \times 8 = $</p><input type="number" class="answer-input" data-answer="616"></div>
+
+                <!-- Puluhan dengan Puluhan -->
+                <div class="item-container"><p class="question-text">21. $22 \times 14 = $</p><input type="number" class="answer-input" data-answer="308"></div>
+                <div class="item-container"><p class="question-text">22. $35 \times 21 = $</p><input type="number" class="answer-input" data-answer="735"></div>
+                <div class="item-container"><p class="question-text">23. $48 \times 32 = $</p><input type="number" class="answer-input" data-answer="1536"></div>
+                <div class="item-container"><p class="question-text">24. $53 \times 45 = $</p><input type="number" class="answer-input" data-answer="2385"></div>
+                <div class="item-container"><p class="question-text">25. $67 \times 50 = $</p><input type="number" class="answer-input" data-answer="3350"></div>
+                <div class="item-container"><p class="question-text">26. $76 \times 28 = $</p><input type="number" class="answer-input" data-answer="2128"></div>
+                <div class="item-container"><p class="question-text">27. $81 \times 63 = $</p><input type="number" class="answer-input" data-answer="5103"></div>
+                <div class="item-container"><p class="question-text">28. $94 \times 77 = $</p><input type="number" class="answer-input" data-answer="7238"></div>
+                <div class="item-container"><p class="question-text">29. $88 \times 82 = $</p><input type="number" class="answer-input" data-answer="7216"></div>
+                <div class="item-container"><p class="question-text">30. $99 \times 91 = $</p><input type="number" class="answer-input" data-answer="9009"></div>
+
+                <!-- Ratusan dengan Puluhan -->
+                <div class="item-container"><p class="question-text">31. $123 \times 25 = $</p><input type="number" class="answer-input" data-answer="3075"></div>
+                <div class="item-container"><p class="question-text">32. $245 \times 31 = $</p><input type="number" class="answer-input" data-answer="7595"></div>
+                <div class="item-container"><p class="question-text">33. $305 \times 42 = $</p><input type="number" class="answer-input" data-answer="12810"></div>
+                <div class="item-container"><p class="question-text">34. $450 \times 18 = $</p><input type="number" class="answer-input" data-answer="8100"></div>
+                <div class="item-container"><p class="question-text">35. $512 \times 55 = $</p><input type="number" class="answer-input" data-answer="28160"></div>
+                <div class="item-container"><p class="question-text">36. $678 \times 23 = $</p><input type="number" class="answer-input" data-answer="15594"></div>
+                <div class="item-container"><p class="question-text">37. $721 \times 60 = $</p><input type="number" class="answer-input" data-answer="43260"></div>
+                <div class="item-container"><p class="question-text">38. $800 \times 75 = $</p><input type="number" class="answer-input" data-answer="60000"></div>
+                <div class="item-container"><p class="question-text">39. $915 \times 84 = $</p><input type="number" class="answer-input" data-answer="76860"></div>
+                <div class="item-container"><p class="question-text">40. $987 \times 92 = $</p><input type="number" class="answer-input" data-answer="90804"></div>
+                
+                <!-- Puluhan dengan Ratusan -->
+                <div class="item-container"><p class="question-text">41. $45 \times 150 = $</p><input type="number" class="answer-input" data-answer="6750"></div>
+                <div class="item-container"><p class="question-text">42. $62 \times 230 = $</p><input type="number" class="answer-input" data-answer="14260"></div>
+                <div class="item-container"><p class="question-text">43. $38 \times 310 = $</p><input type="number" class="answer-input" data-answer="11780"></div>
+                <div class="item-container"><p class="question-text">44. $73 \times 405 = $</p><input type="number" class="answer-input" data-answer="29565"></div>
+                <div class="item-container"><p class="question-text">45. $80 \times 555 = $</p><input type="number" class="answer-input" data-answer="44400"></div>
+                <div class="item-container"><p class="question-text">46. $29 \times 621 = $</p><input type="number" class="answer-input" data-answer="18009"></div>
+                <div class="item-container"><p class="question-text">47. $57 \times 718 = $</p><input type="number" class="answer-input" data-answer="40926"></div>
+                <div class="item-container"><p class="question-text">48. $91 \times 832 = $</p><input type="number" class="answer-input" data-answer="75712"></div>
+                <div class="item-container"><p class="question-text">49. $85 \times 911 = $</p><input type="number" class="answer-input" data-answer="77435"></div>
+                <div class="item-container"><p class="question-text">50. $98 \times 999 = $</p><input type="number" class="answer-input" data-answer="97902"></div>
+
+            </section>
+            
+            <!-- Division Section -->
+            <section class="content-card">
+                <h2 class="section-title">Pembagian (50 Soal)</h2>
+
+                <!-- Satuan dengan Satuan (Hasil Satuan) -->
+                <div class="item-container"><p class="question-text">1.  $48 \div 6 = $</p><input type="number" class="answer-input" data-answer="8"></div>
+                <div class="item-container"><p class="question-text">2.  $63 \div 7 = $</p><input type="number" class="answer-input" data-answer="9"></div>
+                <div class="item-container"><p class="question-text">3.  $36 \div 4 = $</p><input type="number" class="answer-input" data-answer="9"></div>
+                <div class="item-container"><p class="question-text">4.  $72 \div 8 = $</p><input type="number" class="answer-input" data-answer="9"></div>
+                <div class="item-container"><p class="question-text">5.  $54 \div 9 = $</p><input type="number" class="answer-input" data-answer="6"></div>
+                <div class="item-container"><p class="question-text">6.  $25 \div 5 = $</p><input type="number" class="answer-input" data-answer="5"></div>
+                <div class="item-container"><p class="question-text">7.  $49 \div 7 = $</p><input type="number" class="answer-input" data-answer="7"></div>
+                <div class="item-container"><p class="question-text">8.  $81 \div 9 = $</p><input type="number" class="answer-input" data-answer="9"></div>
+                <div class="item-container"><p class="question-text">9.  $40 \div 5 = $</p><input type="number" class="answer-input" data-answer="8"></div>
+                <div class="item-container"><p class="question-text">10. $64 \div 8 = $</p><input type="number" class="answer-input" data-answer="8"></div>
+                
+                <!-- Puluhan dengan Satuan -->
+                <div class="item-container"><p class="question-text">11. $96 \div 4 = $</p><input type="number" class="answer-input" data-answer="24"></div>
+                <div class="item-container"><p class="question-text">12. $87 \div 3 = $</p><input type="number" class="answer-input" data-answer="29"></div>
+                <div class="item-container"><p class="question-text">13. $75 \div 5 = $</p><input type="number" class="answer-input" data-answer="15"></div>
+                <div class="item-container"><p class="question-text">14. $98 \div 7 = $</p><input type="number" class="answer-input" data-answer="14"></div>
+                <div class="item-container"><p class="question-text">15. $112 \div 8 = $</p><input type="number" class="answer-input" data-answer="14"></div>
+                <div class="item-container"><p class="question-text">16. $135 \div 9 = $</p><input type="number" class="answer-input" data-answer="15"></div>
+                <div class="item-container"><p class="question-text">17. $108 \div 6 = $</p><input type="number" class="answer-input" data-answer="18"></div>
+                <div class="item-container"><p class="question-text">18. $152 \div 8 = $</p><input type="number" class="answer-input" data-answer="19"></div>
+                <div class="item-container"><p class="question-text">19. $225 \div 5 = $</p><input type="number" class="answer-input" data-answer="45"></div>
+                <div class="item-container"><p class="question-text">20. $343 \div 7 = $</p><input type="number" class="answer-input" data-answer="49"></div>
+
+                <!-- Ratusan dengan Puluhan (Hasil Satuan/Puluhan) -->
+                <div class="item-container"><p class="question-text">21. $120 \div 10 = $</p><input type="number" class="answer-input" data-answer="12"></div>
+                <div class="item-container"><p class="question-text">22. $143 \div 11 = $</p><input type="number" class="answer-input" data-answer="13"></div>
+                <div class="item-container"><p class="question-text">23. $256 \div 16 = $</p><input type="number" class="answer-input" data-answer="16"></div>
+                <div class="item-container"><p class="question-text">24. $360 \div 12 = $</p><input type="number" class="answer-input" data-answer="30"></div>
+                <div class="item-container"><p class="question-text">25. $450 \div 15 = $</p><input type="number" class="answer-input" data-answer="30"></div>
+                <div class="item-container"><p class="question-text">26. $575 \div 25 = $</p><input type="number" class="answer-input" data-answer="23"></div>
+                <div class="item-container"><p class="question-text">27. $624 \div 24 = $</p><input type="number" class="answer-input" data-answer="26"></div>
+                <div class="item-container"><p class="question-text">28. $812 \div 29 = $</p><input type="number" class="answer-input" data-answer="28"></div>
+                <div class="item-container"><p class="question-text">29. $990 \div 30 = $</p><input type="number" class="answer-input" data-answer="33"></div>
+                <div class="item-container"><p class="question-text">30. $782 \div 34 = $</p><input type="number" class="answer-input" data-answer="23"></div>
+                
+                <!-- Ratusan/Ribuan dengan Puluhan (lebih sulit)-->
+                <div class="item-container"><p class="question-text">31. $1125 \div 25 = $</p><input type="number" class="answer-input" data-answer="45"></div>
+                <div class="item-container"><p class="question-text">32. $2432 \div 32 = $</p><input type="number" class="answer-input" data-answer="76"></div>
+                <div class="item-container"><p class="question-text">33. $3150 \div 50 = $</p><input type="number" class="answer-input" data-answer="63"></div>
+                <div class="item-container"><p class="question-text">34. $4680 \div 40 = $</p><input type="number" class="answer-input" data-answer="117"></div>
+                <div class="item-container"><p class="question-text">35. $5120 \div 80 = $</p><input type="number" class="answer-input" data-answer="64"></div>
+                <div class="item-container"><p class="question-text">36. $6762 \div 42 = $</p><input type="number" class="answer-input" data-answer="161"></div>
+                <div class="item-container"><p class="question-text">37. $7000 \div 35 = $</p><input type="number" class="answer-input" data-answer="200"></div>
+                <div class="item-container"><p class="question-text">38. $8888 \div 88 = $</p><input type="number" class="answer-input" data-answer="101"></div>
+                <div class="item-container"><p class="question-text">39. $9282 \div 91 = $</p><input type="number" class="answer-input" data-answer="102"></div>
+                <div class="item-container"><p class="question-text">40. $9870 \div 30 = $</p><input type="number" class="answer-input" data-answer="329"></div>
+
+                <!-- Soal Campuran Paling Sulit -->
+                <div class="item-container"><p class="question-text">41. $1024 \div 16 = $</p><input type="number" class="answer-input" data-answer="64"></div>
+                <div class="item-container"><p class="question-text">42. $2025 \div 45 = $</p><input type="number" class="answer-input" data-answer="45"></div>
+                <div class="item-container"><p class="question-text">43. $3456 \div 72 = $</p><input type="number" class="answer-input" data-answer="48"></div>
+                <div class="item-container"><p class="question-text">44. $4096 \div 64 = $</p><input type="number" class="answer-input" data-answer="64"></div>
+                <div class="item-container"><p class="question-text">45. $5000 \div 25 = $</p><input type="number" class="answer-input" data-answer="200"></div>
+                <div class="item-container"><p class="question-text">46. $6561 \div 81 = $</p><input type="number" class="answer-input" data-answer="81"></div>
+                <div class="item-container"><p class="question-text">47. $7200 \div 90 = $</p><input type="number" class="answer-input" data-answer="80"></div>
+                <div class="item-container"><p class="question-text">48. $8736 \div 84 = $</p><input type="number" class="answer-input" data-answer="104"></div>
+                <div class="item-container"><p class="question-text">49. $9801 \div 99 = $</p><input type="number" class="answer-input" data-answer="99"></div>
+                <div class="item-container"><p class="question-text">50. $10000 \div 50 = $</p><input type="number" class="answer-input" data-answer="200"></div>
+
+            </section>
+        </main>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const inputs = document.querySelectorAll('.answer-input');
+
+        inputs.forEach(input => {
+            input.addEventListener('input', (event) => {
+                const userAnswer = event.target.value;
+                const correctAnswer = event.target.dataset.answer;
+
+                // Remove previous states
+                event.target.classList.remove('correct', 'incorrect');
+
+                if (userAnswer === '') {
+                    // Reset if empty
+                    return;
+                }
+
+                if (userAnswer === correctAnswer) {
+                    event.target.classList.add('correct');
+                } else {
+                    event.target.classList.add('incorrect');
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
+
