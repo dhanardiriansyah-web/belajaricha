@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Hacking: Empat Operasi Bilangan Bulat</title>
+    <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          },
+          svg: {
+            fontCache: 'global',
+            linebreaks: { automatic: true }
+          }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #333333;
+            --secondary-text: #555555;
+            --border-color: #dddddd;
+            --title-grad-1: #4a4a4a;
+            --title-grad-2: #000000;
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .book-container {
+            counter-reset: page;
+        }
+
+        .page {
+            background: white;
+            width: 176mm; /* Ukuran B5 */
+            min-height: 250mm; /* Ukuran B5 */
+            padding: 20mm;
+            margin: 1cm auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 3px solid #444;
+            height: 250mm;
+        }
+        
+        .cover-page img {
+            max-width: 350px;
+            margin-bottom: 40px;
+        }
+
+        .cover-page .title {
+            font-size: 38pt;
+            font-weight: 900;
+            margin: 0;
+            color: var(--title-grad-2);
+            background: -webkit-linear-gradient(45deg, var(--title-grad-1), var(--title-grad-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .cover-page .subtitle {
+            font-size: 20pt;
+            margin-top: 15px;
+            color: var(--secondary-text);
+            font-weight: 700;
+        }
+
+        @page {
+            size: B5;
+            margin: 20mm;
+        }
+
+        @media print {
+            body {
+                background: none;
+            }
+            .page {
+                width: auto;
+                height: auto;
+                min-height: 0;
+                margin: 0;
+                box-shadow: none;
+                break-after: page;
+            }
+            .sub-section {
+                break-before: page;
+            }
+        }
+        
+        .page-content::before {
+            content: '';
+            background-image: url('https://imgix3.ruangguru.com/assets/miscellaneous/png_tiy3nf_6017.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 12cm;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            opacity: 0.08;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .cover-page::before, .toc-page::before {
+            content: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+        
+        h2 {
+            font-size: 18pt;
+            color: #000;
+            border-left: 5px solid #555;
+            padding-left: 10px;
+            margin-top: 0;
+        }
+        
+        h3 {
+            font-size: 14pt;
+            color: #222;
+            margin-top: 30px;
+            font-weight: 700;
+            padding-top: 1em;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+        
+        h3:first-of-type {
+            padding-top: 0;
+            margin-top: 0;
+        }
+        
+        h4 {
+            font-size: 12pt;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .soal-item, .latihan-item {
+            margin-bottom: 25px;
+            break-inside: avoid;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        .soal-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0 10px;
+            align-items: start;
+        }
+        
+        .pembahasan { 
+            background-color: #f9f9f9; 
+            border: 1px solid var(--border-color); 
+            padding: 15px; 
+            border-radius: 5px; 
+            margin-top: 10px; 
+            break-inside: avoid; 
+        }
+        .pembahasan p { margin-bottom: 1.2em; }
+        .pembahasan p:last-child { margin-bottom: 0; }
+        .pembahasan pre {
+            font-family: monospace;
+            line-height: 1.4;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        
+        .kumpulan-pembahasan h3 { text-align: center; border-bottom: none; }
+        .kumpulan-pembahasan .pembahasan { margin-bottom: 15px; }
+
+        .keterangan-soal { font-style: italic; font-size: 9pt; color: var(--secondary-text); margin-bottom: 5px; }
+        
+        .latihan-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .kunci-jawaban-section ol {
+            padding-left: 20px;
+            columns: 2;
+            -webkit-columns: 2;
+            -moz-columns: 2;
+        }
+        .kunci-jawaban-section li {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        /* Daftar Isi Styles */
+        .toc-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .toc-list li {
+            font-size: 14pt;
+            margin-bottom: 15px;
+        }
+        .toc-list a {
+            text-decoration: none;
+            color: #337ab7;
+            font-weight: bold;
+        }
+        .toc-list a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="book-container">
+
+    <!-- Cover Page -->
+    <section class="page cover-page">
+        <div class="content-wrapper">
+            <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_tiy3nf_6017.png" alt="Math Specialist Logo">
+            <h1 class="title">Empat Operasi Bilangan Bulat</h1>
+            <p class="subtitle">Kuasai Penjumlahan, Pengurangan, Perkalian, & Pembagian!</p>
+        </div>
+    </section>
+
+    <!-- Daftar Isi -->
+    <section class="page toc-page">
+        <div class="content-wrapper">
+            <h2>Daftar Isi</h2>
+            <ul class="toc-list">
+                <li><a href="#penjumlahan_pengurangan">1. Penjumlahan & Pengurangan</a></li>
+                <li><a href="#perkalian">2. Perkalian</a></li>
+                <li><a href="#pembagian">3. Pembagian</a></li>
+                <li><a href="#operasi_campuran">4. Operasi Hitung Campuran</a></li>
+                <li><a href="#soal_cerita">5. Soal Cerita</a></li>
+                <li><a href="#kunci_jawaban">Kunci Jawaban & Pembahasan Komprehensif</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ############################## LATIHAN 1 & 2: Penjumlahan & Pengurangan Dasar ############################## -->
+    <section class="page page-content">
+      <div class="content-wrapper">
+        <h2 id="penjumlahan_pengurangan">1. Penjumlahan & Pengurangan</h2>
+        <h3>A. Contoh Soal</h3>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>1.</b></div><div class="soal-konten">Hitunglah: $4.261 + 9.793$</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p>Gunakan penjumlahan bersusun. <br/><pre>  4.261
+  9.793
++------
+ 14.054</pre>Hasilnya adalah <b>14.054</b>.</p></div>
+        </div>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>2.</b></div><div class="soal-konten">Hitunglah: $9.001 - 128$</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p>Gunakan pengurangan bersusun dengan teknik meminjam.<br/><pre>  9.001
+    128
+-------
+  8.873</pre>Hasilnya adalah <b>8.873</b>.</p></div>
+        </div>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>3.</b></div><div class="soal-konten">Hitung cepat: $2.756 + 98$</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p>Gunakan strategi mental. Anggap saja $2.756 + 100$, yaitu $2.856$. Karena kelebihan 2, maka hasilnya $2.856 - 2 = 2.854$. Hasilnya adalah <b>2.854</b>.</p></div>
+        </div>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>4.</b></div><div class="soal-konten">Taksirlah hasil dari $792 + 204$ ke ratusan terdekat.</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p>$792 \approx 800$ dan $204 \approx 200$. Maka taksirannya adalah $800 + 200 = 1.000$.</p></div>
+        </div>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>5.</b></div><div class="soal-konten">Sarah memiliki 4.670 prangko. Temannya memiliki 698 prangko lebih sedikit darinya. Berapa total prangko mereka berdua?</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p>Prangko teman Sarah: $4.670 - 698 = 3.972$. Total prangko: $4.670 + 3.972 = 8.642$.</p></div>
+        </div>
+        
+        <h3>B. Latihan Soal</h3>
+        <div class="latihan-container">
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>1.</b></div><div class="soal-konten">$7.243 + 652 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>2.</b></div><div class="soal-konten">$1.246 + 9.798 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>3.</b></div><div class="soal-konten">$8.509 + 9.983 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>4.</b></div><div class="soal-konten">$7.856 - 1.234 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>5.</b></div><div class="soal-konten">$3.000 - 2.874 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>6.</b></div><div class="soal-konten">$6.060 - 3.687 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>7.</b></div><div class="soal-konten">$1.582 + 99 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>8.</b></div><div class="soal-konten">$6.437 - 999 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>9.</b></div><div class="soal-konten">Taksirlah: $782 - 509$ (bulatkan ke ratusan).</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>10.</b></div><div class="soal-konten">Taksirlah: $998 - 194 + 97$ (bulatkan ke ratusan).</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>11.</b></div><div class="soal-konten">Taksirlah: $2.409 + 593 - 708$ (bulatkan ke ratusan).</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>12.</b></div><div class="soal-konten">Bu Gina ingin membeli piano seharga Rp 32.250.000. Dia memiliki tabungan Rp 19.500.000 dan uang tunai Rp 6.250.000. Berapa banyak lagi uang yang dia butuhkan?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>13.</b></div><div class="soal-konten">Seorang pengemudi menempuh jarak 325 km pada hari Sabtu. Jarak yang ditempuhnya pada hari Sabtu 49 km lebih sedikit daripada hari Minggu. Berapa total jarak yang ia tempuh selama dua hari?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>14.</b></div><div class="soal-konten">$3.276 + 2.040 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>15.</b></div><div class="soal-konten">$4.261 - 2.500 = \dots$</div></div></div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- ############################## Perkalian ############################## -->
+    <section class="page page-content">
+      <div class="content-wrapper">
+        <h2 id="perkalian" class="sub-section">2. Perkalian</h2>
+        <h3>A. Contoh Soal</h3>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>1.</b></div><div class="soal-konten">Hitunglah: $706 \times 8$</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p><pre>  706
+    8
+----- ×
+ 5.648</pre>Hasilnya adalah <b>5.648</b>.</p></div>
+        </div>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>2.</b></div><div class="soal-konten">Hitunglah: $1.893 \times 4$</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p><pre> 1.893
+     4
+----- ×
+ 7.572</pre>Hasilnya adalah <b>7.572</b>.</p></div>
+        </div>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>3.</b></div><div class="soal-konten">Hitunglah: $78 \times 33$</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p><pre>   78
+   33
+----- ×
+  234
+ 2340
+----- +
+ 2.574</pre>Hasilnya adalah <b>2.574</b>.</p></div>
+        </div>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>4.</b></div><div class="soal-konten">Taksirlah hasil dari $483 \times 59$ (bulatkan ke ratusan dan puluhan).</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p>$483 \approx 500$ dan $59 \approx 60$. Taksiran: $500 \times 60 = 30.000$.</p></div>
+        </div>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>5.</b></div><div class="soal-konten">Hotel memesan 1.320 bunga setiap bulan selama 6 bulan. Berapa total bunga yang dipesan?</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p>Total bunga = $1.320 \times 6 = 7.920$.</p></div>
+        </div>
+        
+        <h3>B. Latihan Soal</h3>
+        <div class="latihan-container">
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>1.</b></div><div class="soal-konten">$82 \times 6 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>2.</b></div><div class="soal-konten">$219 \times 6 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>3.</b></div><div class="soal-konten">$357 \times 7 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>4.</b></div><div class="soal-konten">$4.036 \times 7 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>5.</b></div><div class="soal-konten">$8.195 \times 9 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>6.</b></div><div class="soal-konten">$582 \times 10 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>7.</b></div><div class="soal-konten">$436 \times 40 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>8.</b></div><div class="soal-konten">$21 \times 13 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>9.</b></div><div class="soal-konten">$37 \times 24 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>10.</b></div><div class="soal-konten">$52 \times 39 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>11.</b></div><div class="soal-konten">$218 \times 37 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>12.</b></div><div class="soal-konten">$648 \times 78 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>13.</b></div><div class="soal-konten">Jumlah manik-manik merah 3 kali jumlah manik-manik putih. Jika ada 1.875 manik putih, berapa total manik-manik di dalam botol?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>14.</b></div><div class="soal-konten">David membeli 2 komputer seharga Rp 35.690.000 per buah. Sisa uangnya adalah Rp 29.070.000. Berapa uangnya semula?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>15.</b></div><div class="soal-konten">5 orang berbagi uang. 2 orang menerima Rp 43.560.000 masing-masing. Sisanya menerima Rp 38.070.000 masing-masing. Berapa jumlah total uangnya?</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ############################## Pembagian ############################## -->
+    <section class="page page-content">
+      <div class="content-wrapper">
+        <h2 id="pembagian" class="sub-section">3. Pembagian</h2>
+        <h3>A. Contoh Soal</h3>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>1.</b></div><div class="soal-konten">Hitunglah: $378 \div 6$</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p>Gunakan pembagian bersusun. $37 \div 6 = 6$ sisa 1. Turunkan 8 menjadi 18. $18 \div 6 = 3$. Hasilnya adalah <b>63</b>.</p></div>
+        </div>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>2.</b></div><div class="soal-konten">Hitunglah: $98 \div 7$</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p>$9 \div 7 = 1$ sisa 2. Turunkan 8 menjadi 28. $28 \div 7 = 4$. Hasilnya adalah <b>14</b>.</p></div>
+        </div>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>3.</b></div><div class="soal-konten">Hitunglah: $2.475 \div 5$</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p>$24 \div 5 = 4$ sisa 4. Turunkan 7 menjadi 47. $47 \div 5 = 9$ sisa 2. Turunkan 5 menjadi 25. $25 \div 5 = 5$. Hasilnya adalah <b>495</b>.</p></div>
+        </div>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>4.</b></div><div class="soal-konten">Berapa hasil dan sisa dari $9.207 \div 3$?</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p>$9.207 \div 3 = 3.069$. Hasilnya <b>3.069</b> dan sisa <b>0</b>.</p></div>
+        </div>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>5.</b></div><div class="soal-konten">Tukang roti membuat pai daging 4 kali lebih banyak dari pai sayur. Dia membuat 4.864 pai daging. Berapa lebihnya pai daging dari pai sayur?</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p>Pai sayur: $4.864 \div 4 = 1.216$. Selisihnya: $4.864 - 1.216 = 3.648$.</p></div>
+        </div>
+        
+        <h3>B. Latihan Soal</h3>
+        <div class="latihan-container">
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>1.</b></div><div class="soal-konten">$68 \div 4 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>2.</b></div><div class="soal-konten">$96 \div 8 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>3.</b></div><div class="soal-konten">$635 \div 5 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>4.</b></div><div class="soal-konten">$963 \div 9 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>5.</b></div><div class="soal-konten">$3.594 \div 6 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>6.</b></div><div class="soal-konten">$4.214 \div 7 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>7.</b></div><div class="soal-konten">$6.480 \div 9 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>8.</b></div><div class="soal-konten">$5.208 \div 4 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>9.</b></div><div class="soal-konten">$1.936 \div 8 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>10.</b></div><div class="soal-konten">Jika $n \times 6 = 6.474$, berapakah nilai $n$?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>11.</b></div><div class="soal-konten">Jika $n \div 3 = 4.095$, berapakah nilai $n$?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>12.</b></div><div class="soal-konten">Margo menjual 3 kali lebih banyak pir daripada apel. Dia menjual total 3.456 apel dan pir. Berapa banyak pir yang dia jual?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>13.</b></div><div class="soal-konten">Sue, Pat, dan Jerry berbagi Rp 387.000 secara merata. Sue memberi Pat Rp 42.000 dan Pat menghabiskan Rp 28.000. Berapa uang Pat pada akhirnya?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>14.</b></div><div class="soal-konten">Sejumlah Rp 1.040.000 dibagi menjadi 8 bagian sama besar. Alice mendapat 4 bagian dan Bob mendapat 1 bagian. Berapa banyak yang Alice dapatkan?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>15.</b></div><div class="soal-konten">Sebuah komputer berharga Rp 18.570.000, yaitu 3 kali harga printer. Berapa total harga komputer dan printer?</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ############################## Operasi Campuran ############################## -->
+    <section class="page page-content">
+      <div class="content-wrapper">
+        <h2 id="operasi_campuran" class="sub-section">4. Operasi Hitung Campuran</h2>
+        <h3>A. Contoh Soal</h3>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>1.</b></div><div class="soal-konten">Hitunglah: $46 + 32 \div 8$</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p>Kerjakan pembagian dulu: $32 \div 8 = 4$. Lalu penjumlahan: $46 + 4 = 50$.</p></div>
+        </div>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>2.</b></div><div class="soal-konten">Hitunglah: $80 - 36 \div 4 \times 3$</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p>Kerjakan pembagian dan perkalian dari kiri ke kanan: $36 \div 4 = 9$. Lalu $9 \times 3 = 27$. Terakhir pengurangan: $80 - 27 = 53$.</p></div>
+        </div>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>3.</b></div><div class="soal-konten">Hitunglah: $16 + (9 - 3) \times 5$</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p>Kerjakan dalam kurung: $9 - 3 = 6$. Lalu perkalian: $6 \times 5 = 30$. Terakhir penjumlahan: $16 + 30 = 46$.</p></div>
+        </div>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>4.</b></div><div class="soal-konten">Hitunglah: $100 - 8 \times (5 + 2) \div 4$</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p>Kurung: $5+2=7$. Menjadi $100 - 8 \times 7 \div 4$. Kali/Bagi dari kiri: $8 \times 7 = 56$, lalu $56 \div 4 = 14$. Terakhir: $100 - 14 = 86$.</p></div>
+        </div>
+        <div class="soal-item">
+            <div class="soal-grid"><div class="soal-nomor"><b>5.</b></div><div class="soal-konten">Jamie punya 50 manik-manik. Dia gunakan 32, lalu membeli 18 lagi. Tuliskan dalam satu ekspresi matematika dan hitung jumlah akhirnya.</div></div>
+            <div class="pembahasan"><b>Pembahasan:</b><p>Ekspresinya adalah $50 - 32 + 18$. Dikerjakan dari kiri: $50 - 32 = 18$. Lalu $18 + 18 = 36$.</p></div>
+        </div>
+        
+        <h3>B. Latihan Soal</h3>
+        <div class="latihan-container">
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>1.</b></div><div class="soal-konten">$26 + 8 - 9 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>2.</b></div><div class="soal-konten">$64 \div 8 \times 5 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>3.</b></div><div class="soal-konten">$140 - 40 \times 3 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>4.</b></div><div class="soal-konten">$100 - 60 \div 4 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>5.</b></div><div class="soal-konten">$12 + 18 \div 6 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>6.</b></div><div class="soal-konten">$20 + 4 \div 4 - 4 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>7.</b></div><div class="soal-konten">$6 \times 2 - 10 \div 5 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>8.</b></div><div class="soal-konten">$52 - 35 \div 7 - 7 \times 2 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>9.</b></div><div class="soal-konten">$7 \times 8 + 24 \div 8 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>10.</b></div><div class="soal-konten">$5 \times 8 - 32 \div 4 + 18 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>11.</b></div><div class="soal-konten">$(9 + 6) \div 5 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>12.</b></div><div class="soal-konten">$12 \div (8 - 6) = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>13.</b></div><div class="soal-konten">$7 \times (13 - 6) - 19 = \dots$</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>14.</b></div><div class="soal-konten">Sean punya 15 kartu. Adam punya dua kali lipatnya. Adam membeli 10 kartu lagi. Berapa jumlah kartu Adam sekarang?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>15.</b></div><div class="soal-konten">Natalie membuat 14 toples biskuit mentega dan 16 toples biskuit selai. Setiap toples berisi 48 biskuit. Berapa total biskuit yang ia buat?</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ############################## Soal Cerita ############################## -->
+    <section class="page page-content">
+      <div class="content-wrapper">
+        <h2 id="soal_cerita" class="sub-section">5. Soal Cerita</h2>
+        <div class="latihan-container">
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>1.</b></div><div class="soal-konten">Jumlah dari dua bilangan adalah 1.200. Selisih kedua bilangan itu adalah 214. Berapakah kedua bilangan tersebut?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>2.</b></div><div class="soal-konten">Petani memiliki sapi dua kali lebih banyak dari domba. Setelah ia menjual 375 sapi dan 12 sapi lainnya mati, jumlah sapinya menjadi setengah dari jumlah domba. Berapa banyak sapi yang tersisa?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>3.</b></div><div class="soal-konten">Vince dan Zac mengumpulkan total 952 stiker. Vince mengumpulkan 3 kali lebih banyak stiker dari Zac. Jason mengumpulkan setengah dari stiker Zac. Berapa banyak stiker yang dikumpulkan setiap orang?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>4.</b></div><div class="soal-konten">Tali P panjangnya 3 kali tali Q. Tali R panjangnya 3 meter lebih dari setengah total panjang tali P dan Q. Jika total panjang ketiga tali adalah 5.400 cm, berapakah panjang tali R?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>5.</b></div><div class="soal-konten">Ada tiga kali lebih banyak anak laki-laki daripada perempuan di sebuah aula. Setelah 75 anak laki-laki pergi dan 25 anak perempuan masuk, jumlah anak perempuan menjadi dua kali jumlah anak laki-laki. Jika tersisa 90 anak, berapa banyak anak di aula pada awalnya?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>6.</b></div><div class="soal-konten">Hasil kali dua bilangan bulat adalah 10.000. Tidak ada satu pun dari kedua bilangan tersebut yang mengandung angka nol. Berapakah kedua bilangan tersebut?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>7.</b></div><div class="soal-konten">Belinda 7 tahun lebih tua dari adiknya. Tiga tahun yang lalu, total usia mereka adalah 43 tahun. Berapa usia Belinda 12 tahun dari sekarang?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>8.</b></div><div class="soal-konten">Peter dan Lillian menghabiskan total Rp 780.000. Lillian dan Adam menghabiskan total Rp 1.240.000. Adam menghabiskan 3 kali lebih banyak dari Peter. Berapa banyak yang dihabiskan Lillian?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>9.</b></div><div class="soal-konten">Tom memiliki Rp 190.000 dan Jane memiliki Rp 60.000. Setelah masing-masing menerima sejumlah uang yang sama dari ayah mereka, Tom memiliki uang dua kali lebih banyak dari Jane. Berapa banyak uang yang ayah berikan kepada masing-masing dari mereka?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>10.</b></div><div class="soal-konten">Tiket dewasa seharga Rp 100.000 dan tiket anak-anak seharga Rp 70.000. Pak Sullivan membeli 13 tiket seharga Rp 1.060.000. Berapa banyak tiket anak-anak yang ia beli?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>11.</b></div><div class="soal-konten">Ada dua kali lebih banyak sapi daripada kambing di sebuah peternakan. Semua sapi dan kambing memiliki total 108 kaki. Berapa banyak sapi di sana?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>12.</b></div><div class="soal-konten">Ada 3 kali lebih banyak ayam daripada kambing di sebuah peternakan. Semua ayam dan kambing memiliki total 2.400 kaki. Berapa selisih jumlah ayam dan kambing?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>13.</b></div><div class="soal-konten">Joe memiliki uang Rp 960.000. Jika Rick memiliki Rp 240.000 lagi, ia akan memiliki uang dua kali lebih banyak dari Joe. Berapa selisih uang Joe dan Rick?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>14.</b></div><div class="soal-konten">Saya memikirkan dua bilangan. Jumlahnya 1.544 dan selisihnya 152. Berapakah kedua bilangan tersebut?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>15.</b></div><div class="soal-konten">Bob, Jean, dan Paul memiliki total 5.590 stiker. Paul memiliki stiker dua kali lebih banyak dari Bob. Bob memiliki stiker 3 kali lebih banyak dari Jean. Berapa banyak stiker yang dimiliki masing-masing?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>16.</b></div><div class="soal-konten">Peter memiliki 438 kartu. Jika Pam memiliki 379 kartu lagi, ia akan memiliki kartu dua kali lebih banyak dari Peter. Berapa banyak kartu yang dimiliki Pam?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>17.</b></div><div class="soal-konten">Empat apel dan tujuh lemon berharga Rp 47.000. Setiap apel berharga Rp 2.000 lebih murah dari lemon. Berapa harga tiga buah lemon?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>18.</b></div><div class="soal-konten">Seorang penjual burger menjual burgernya seharga Rp 30.000 pada pagi hari. Di sore hari harganya turun menjadi Rp 25.000. Pada suatu hari Minggu, ia mendapatkan total Rp 1.200.000 dari penjualan pagi. Di sore harinya, ia berhasil menjual burger dua kali lebih banyak dari penjualan pagi. Berapa total uang yang ia dapatkan pada hari Minggu itu?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>19.</b></div><div class="soal-konten">Phil memiliki uang 3 kali lebih banyak dari Anne. Setelah Phil memberikan Rp 285.000 kepada Anne, ia memiliki uang dua kali lebih banyak dari Anne. Berapa uang Phil pada awalnya?</div></div></div>
+            <div class="latihan-item"><div class="soal-grid"><div class="soal-nomor"><b>20.</b></div><div class="soal-konten">Jumlah tiga bilangan bulat sama dengan hasil kalinya. Berapakah bilangan-bilangan tersebut?</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ############################## KUNCI JAWABAN ############################## -->
+    <section class="page page-content">
+        <div class="content-wrapper">
+            <h3 id="kunci_jawaban">Kunci Jawaban & Pembahasan Komprehensif</h3>
+            <h4>Bagian 1: Penjumlahan & Pengurangan</h4>
+            <div class="pembahasan"><b>1. Jawaban: 7.895</b><p><b>Teori:</b> Penjumlahan bersusun dilakukan dengan menyejajarkan angka berdasarkan nilai tempatnya (satuan, puluhan, dll.) lalu menjumlahkan setiap kolom dari kanan ke kiri.<br><b>Langkah-langkah:</b><br><pre>  7.243
+    652
++------
+  7.895</pre></p></div>
+            <div class="pembahasan"><b>2. Jawaban: 11.044</b><p><b>Teori:</b> Jika hasil penjumlahan satu kolom lebih dari 9, angka puluhannya "disimpan" dan ditambahkan ke kolom berikutnya di sebelah kiri.<br><b>Langkah-langkah:</b><br><pre>  1 1 1
+  1.246
+  9.798
++-------
+ 11.044</pre>1. Satuan: $6 + 8 = 14$ (Tulis 4, simpan 1).<br>2. Puluhan: $1+4+9 = 14$ (Tulis 4, simpan 1).<br>3. Ratusan: $1+2+7 = 10$ (Tulis 0, simpan 1).<br>4. Ribuan: $1+1+9 = 11$.</p></div>
+            <div class="pembahasan"><b>3. Jawaban: 18.492</b><p><b>Langkah-langkah:</b> Penjumlahan bersusun dengan teknik menyimpan.<br><pre>  1  1
+  8.509
+  9.983
++-------
+ 18.492</pre></p></div>
+            <div class="pembahasan"><b>4. Jawaban: 6.622</b><p><b>Teori:</b> Pengurangan bersusun dilakukan dengan mengurangkan setiap kolom dari kanan ke kiri.<br><pre>  7.856
+  1.234
+-------
+  6.622</pre></p></div>
+            <div class="pembahasan"><b>5. Jawaban: 126</b><p><b>Teori:</b> Jika angka di atas lebih kecil, "pinjam" dari angka di sebelah kirinya.<br><pre>  2 9 9 10
+  3.0 0 0
+  2.8 7 4
+- --------
+    1 2 6</pre>1. Pinjam dari ribuan (3) sampai ke satuan, sehingga 0 menjadi 10, dan 0 di puluhan/ratusan menjadi 9.<br>2. Satuan: $10-4=6$.<br>3. Puluhan: $9-7=2$.<br>4. Ratusan: $9-8=1$.<br>5. Ribuan: $2-2=0$.</p></div>
+            <div class="pembahasan"><b>6. Jawaban: 2.373</b><p><b>Langkah-langkah:</b> Pengurangan bersusun dengan teknik meminjam.<br><pre>  5 9 15 10
+  6.0 6 0
+  3.6 8 7
+- --------
+  2.3 7 3</pre></p></div>
+            <div class="pembahasan"><b>7. Jawaban: 1.681</b><p><b>Teori:</b> Menambah 99 sama dengan menambah 100 lalu mengurangi 1.<br><b>Langkah-langkah:</b> $1.582 + 100 = 1.682$. Lalu $1.682 - 1 = 1.681$.</p></div>
+            <div class="pembahasan"><b>8. Jawaban: 5.438</b><p><b>Teori:</b> Mengurangi 999 sama dengan mengurangi 1.000 lalu menambah 1.<br><b>Langkah-langkah:</b> $6.437 - 1.000 = 5.437$. Lalu $5.437 + 1 = 5.438$.</p></div>
+            <div class="pembahasan"><b>9. Jawaban: 300</b><p><b>Teori:</b> Taksiran dilakukan dengan membulatkan ke nilai tempat terdekat. Angka 5 ke atas dibulatkan ke atas, di bawah 5 ke bawah.<br><b>Langkah-langkah:</b> $782 \approx 800$. $509 \approx 500$. Taksiran: $800 - 500 = 300$.</p></div>
+            <div class="pembahasan"><b>10. Jawaban: 900</b><p><b>Langkah-langkah:</b> $998 \approx 1000$. $194 \approx 200$. $97 \approx 100$. Taksiran: $1000 - 200 + 100 = 900$.</p></div>
+            <div class="pembahasan"><b>11. Jawaban: 2.300</b><p><b>Langkah-langkah:</b> $2.409 \approx 2.400$. $593 \approx 600$. $708 \approx 700$. Taksiran: $2.400 + 600 - 700 = 2.300$.</p></div>
+            <div class="pembahasan"><b>12. Jawaban: Rp 6.500.000</b><p>1. <b>Total uang dimiliki:</b> Rp 19.500.000 + Rp 6.250.000 = Rp 25.750.000.<br>2. <b>Uang yang kurang:</b> Harga piano - Uang dimiliki = Rp 32.250.000 - Rp 25.750.000 = Rp 6.500.000.</p></div>
+            <div class="pembahasan"><b>13. Jawaban: 699 km</b><p>1. <b>Jarak hari Minggu:</b> Jarak Sabtu + 49 km = 325 + 49 = 374 km.<br>2. <b>Total jarak:</b> Jarak Sabtu + Jarak Minggu = 325 + 374 = 699 km.</p></div>
+            <div class="pembahasan"><b>14. Jawaban: 5.316</b><p>Penjumlahan bersusun biasa.<br><pre>  3.276
+  2.040
++------
+  5.316</pre></p></div>
+            <div class="pembahasan"><b>15. Jawaban: 1.761</b><p>Pengurangan bersusun biasa.<br><pre>  4.261
+  2.500
+-------
+  1.761</pre></p></div>
+
+            <h4 class="sub-section">Bagian 2: Perkalian</h4>
+            <div class="pembahasan"><b>1. Jawaban: 492</b><p><b>Langkah-langkah:</b><br><pre>   1
+  82
+   6
+---- x
+ 492</pre>1. $2 \times 6 = 12$ (Tulis 2, simpan 1).<br>2. $8 \times 6 = 48$. Tambah simpanan 1 menjadi 49.</p></div>
+            <div class="pembahasan"><b>2. Jawaban: 1.314</b><p><b>Langkah-langkah:</b><br><pre>  1 5
+  219
+    6
+----- x
+ 1.314</pre>1. $9 \times 6 = 54$ (Tulis 4, simpan 5).<br>2. $1 \times 6 = 6$. Tambah 5 jadi 11 (Tulis 1, simpan 1).<br>3. $2 \times 6 = 12$. Tambah 1 jadi 13.</p></div>
+            <div class="pembahasan"><b>3. Jawaban: 2.499</b><p><pre>  3 4
+  357
+    7
+----- x
+ 2.499</pre></p></div>
+            <div class="pembahasan"><b>4. Jawaban: 28.252</b><p><pre>    2 4
+  4.036
+      7
+------- x
+ 28.252</pre></p></div>
+            <div class="pembahasan"><b>5. Jawaban: 73.755</b><p><pre>  1 8 4
+  8.195
+      9
+------- x
+ 73.755</pre></p></div>
+            <div class="pembahasan"><b>6. Jawaban: 5.820</b><p>Mengalikan dengan 10 cukup menambahkan satu angka 0 di belakang. $582 \times 10 = 5.820$.</p></div>
+            <div class="pembahasan"><b>7. Jawaban: 17.440</b><p>Untuk mengalikan dengan 40, kalikan dengan 4 lalu tambahkan 0. <br><pre>  1 2
+  436
+    4
+----- x
+ 1.744</pre>Jadi, hasilnya 17.440.</p></div>
+            <div class="pembahasan"><b>8. Jawaban: 273</b><p><pre>   21
+   13
+----- x
+   63  (-> 21 x 3)
+  210  (-> 21 x 10)
+----- +
+  273</pre></p></div>
+            <div class="pembahasan"><b>9. Jawaban: 888</b><p><pre>   37
+   24
+----- x
+  148
+  740
+----- +
+  888</pre></p></div>
+            <div class="pembahasan"><b>10. Jawaban: 2.028</b><p><pre>   52
+   39
+----- x
+  468
+ 1.560
+----- +
+ 2.028</pre></p></div>
+            <div class="pembahasan"><b>11. Jawaban: 8.066</b><p><pre>  218
+   37
+----- x
+ 1.526
+ 6.540
+----- +
+ 8.066</pre></p></div>
+            <div class="pembahasan"><b>12. Jawaban: 50.544</b><p><pre>  648
+   78
+----- x
+ 5.184
+45.360
+----- +
+50.544</pre></p></div>
+            <div class="pembahasan"><b>13. Jawaban: 7.500</b><p>1. <b>Jumlah manik merah:</b> 3 x 1.875 = 5.625.<br>2. <b>Total manik-manik:</b> Manik putih + Manik merah = 1.875 + 5.625 = 7.500.</p></div>
+            <div class="pembahasan"><b>14. Jawaban: Rp 100.450.000</b><p>1. <b>Total harga komputer:</b> 2 x Rp 35.690.000 = Rp 71.380.000.<br>2. <b>Uang semula:</b> Harga komputer + Sisa uang = Rp 71.380.000 + Rp 29.070.000 = Rp 100.450.000.</p></div>
+            <div class="pembahasan"><b>15. Jawaban: Rp 201.330.000</b><p>1. <b>Uang diterima 2 orang pertama:</b> 2 x Rp 43.560.000 = Rp 87.120.000.<br>2. <b>Uang diterima 3 orang sisanya:</b> 3 x Rp 38.070.000 = Rp 114.210.000.<br>3. <b>Total uang:</b> Rp 87.120.000 + Rp 114.210.000 = Rp 201.330.000.</p></div>
+
+            <h4 class="sub-section">Bagian 3: Pembagian</h4>
+            <div class="pembahasan"><b>1. Jawaban: 17</b><p><pre>   17
+  ---
+4| 68
+   -4
+   --
+   28
+  -28
+   --
+    0</pre></p></div>
+            <div class="pembahasan"><b>2. Jawaban: 12</b><p><pre>   12
+  ---
+8| 96
+   -8
+   --
+   16
+  -16
+   --
+    0</pre></p></div>
+            <div class="pembahasan"><b>3. Jawaban: 127</b><p><pre>   127
+  ----
+5| 635
+   -5
+   --
+   13
+  -10
+   --
+    35
+   -35
+    --
+     0</pre></p></div>
+            <div class="pembahasan"><b>4. Jawaban: 107</b><p><pre>   107
+  ----
+9| 963
+   -9
+   --
+    06
+    -0
+    --
+     63
+    -63
+     --
+      0</pre></p></div>
+            <div class="pembahasan"><b>5. Jawaban: 599</b><p><pre>   599
+  ----
+6|3.594
+  -30
+  ---
+   59
+  -54
+  ---
+    54
+   -54
+   ---
+     0</pre></p></div>
+            <div class="pembahasan"><b>6. Jawaban: 602</b><p>$4.214 \div 7 = 602$.</p></div>
+            <div class="pembahasan"><b>7. Jawaban: 720</b><p>$6.480 \div 9 = 720$.</p></div>
+            <div class="pembahasan"><b>8. Jawaban: 1.302</b><p>$5.208 \div 4 = 1.302$.</p></div>
+            <div class="pembahasan"><b>9. Jawaban: 242</b><p>$1.936 \div 8 = 242$.</p></div>
+            <div class="pembahasan"><b>10. Jawaban: 1.079</b><p><b>Teori:</b> Untuk mencari $n$ dalam $n \times a = b$, kita gunakan operasi kebalikannya: $n = b \div a$.<br><b>Langkah:</b> $n = 6.474 \div 6 = 1.079$.</p></div>
+            <div class="pembahasan"><b>11. Jawaban: 12.285</b><p><b>Teori:</b> Untuk mencari $n$ dalam $n \div a = b$, kita gunakan operasi kebalikannya: $n = b \times a$.<br><b>Langkah:</b> $n = 4.095 \times 3 = 12.285$.</p></div>
+            <div class="pembahasan"><b>12. Jawaban: 2.592</b><p>1. <b>Model:</b> Total buah = 4 unit (1 unit apel + 3 unit pir).<br>2. <b>Nilai 1 unit:</b> $3.456 \div 4 = 864$ buah (ini jumlah apel).<br>3. <b>Jumlah pir:</b> $3 \times 864 = 2.592$ buah.</p></div>
+            <div class="pembahasan"><b>13. Jawaban: Rp 143.000</b><p>1. <b>Uang per orang:</b> Rp 387.000 $\div$ 3 = Rp 129.000.<br>2. <b>Uang Pat awalnya:</b> Rp 129.000.<br>3. <b>Setelah diberi Sue:</b> Rp 129.000 + Rp 42.000 = Rp 171.000.<br>4. <b>Setelah belanja:</b> Rp 171.000 - Rp 28.000 = Rp 143.000.</p></div>
+            <div class="pembahasan"><b>14. Jawaban: Rp 520.000</b><p>1. <b>Nilai 1 bagian:</b> Rp 1.040.000 $\div$ 8 = Rp 130.000.<br>2. <b>Uang Alice (4 bagian):</b> $4 \times$ Rp 130.000 = Rp 520.000.</p></div>
+            <div class="pembahasan"><b>15. Jawaban: Rp 24.760.000</b><p>1. <b>Harga printer:</b> Harga komputer $\div$ 3 = Rp 18.570.000 $\div$ 3 = Rp 6.190.000.<br>2. <b>Total harga:</b> Harga komputer + Harga printer = Rp 18.570.000 + Rp 6.190.000 = Rp 24.760.000.</p></div>
+
+            <h4 class="sub-section">Bagian 4: Operasi Hitung Campuran</h4>
+            <div class="pembahasan"><b>1. Jawaban: 25</b><p><b>Teori:</b> Kerjakan tambah dan kurang dari kiri ke kanan. $26+8=34$, lalu $34-9=25$.</p></div>
+            <div class="pembahasan"><b>2. Jawaban: 40</b><p><b>Teori:</b> Kerjakan bagi dan kali dari kiri ke kanan. $64 \div 8 = 8$, lalu $8 \times 5 = 40$.</p></div>
+            <div class="pembahasan"><b>3. Jawaban: 20</b><p><b>Teori (KaBaTaKu):</b> Kerjakan Kali/Bagi dulu sebelum Tambah/Kurang. $40 \times 3 = 120$. Lalu $140 - 120 = 20$.</p></div>
+            <div class="pembahasan"><b>4. Jawaban: 85</b><p>Bagi dulu: $60 \div 4 = 15$. Lalu $100 - 15 = 85$.</p></div>
+            <div class="pembahasan"><b>5. Jawaban: 15</b><p>Bagi dulu: $18 \div 6 = 3$. Lalu $12 + 3 = 15$.</p></div>
+            <div class="pembahasan"><b>6. Jawaban: 17</b><p>Bagi dulu: $4 \div 4 = 1$. Lalu dari kiri ke kanan: $20+1=21$, $21-4=17$.</p></div>
+            <div class="pembahasan"><b>7. Jawaban: 10</b><p>Kali dan bagi dulu: $6 \times 2 = 12$ dan $10 \div 5 = 2$. Lalu $12 - 2 = 10$.</p></div>
+            <div class="pembahasan"><b>8. Jawaban: 33</b><p>Kali dan bagi dulu: $35 \div 7 = 5$ dan $7 \times 2 = 14$. Lalu dari kiri ke kanan: $52 - 5 = 47$, $47 - 14 = 33$.</p></div>
+            <div class="pembahasan"><b>9. Jawaban: 59</b><p>Kali dan bagi dulu: $7 \times 8 = 56$ dan $24 \div 8 = 3$. Lalu $56 + 3 = 59$.</p></div>
+            <div class="pembahasan"><b>10. Jawaban: 50</b><p>Kali dan bagi dulu: $5 \times 8 = 40$ dan $32 \div 4 = 8$. Lalu dari kiri ke kanan: $40-8=32$, $32+18=50$.</p></div>
+            <div class="pembahasan"><b>11. Jawaban: 3</b><p><b>Teori:</b> Kerjakan operasi dalam kurung dulu. $(9+6) = 15$. Lalu $15 \div 5 = 3$.</p></div>
+            <div class="pembahasan"><b>12. Jawaban: 6</b><p>Kurung dulu: $(8-6) = 2$. Lalu $12 \div 2 = 6$.</p></div>
+            <div class="pembahasan"><b>13. Jawaban: 30</b><p>Kurung dulu: $(13-6) = 7$. Lalu kali: $7 \times 7 = 49$. Lalu $49 - 19 = 30$.</p></div>
+            <div class="pembahasan"><b>14. Jawaban: 40 kartu</b><p>1. <b>Kartu Adam (awal):</b> $15 \times 2 = 30$ kartu.<br>2. <b>Kartu Adam (akhir):</b> $30 + 10 = 40$ kartu.</p></div>
+            <div class="pembahasan"><b>15. Jawaban: 1.440 biskuit</b><p>1. <b>Total toples:</b> $14 + 16 = 30$ toples.<br>2. <b>Total biskuit:</b> $30 \times 48 = 1.440$ biskuit.</p></div>
+
+             <h4 class="sub-section">Bagian 5: Soal Cerita</h4>
+            <div class="pembahasan">
+                <b>1. Jawaban: Bilangan kecil = 493, Bilangan besar = 707</b>
+                <p><b>Analisis:</b> Kita diberikan jumlah dan selisih dari dua bilangan. Konsep ini paling mudah diselesaikan dengan membayangkan kedua bilangan sebagai dua bagian yang tidak sama.
+                <br><br><b>Langkah 1: Samakan kedua bagian.</b>
+                Jika kita mengurangi selisih (214) dari jumlah total (1.200), kita akan mendapatkan nilai dari dua bagian yang sama besar (yaitu, 2 kali bilangan yang lebih kecil).
+                <br>$1.200 - 214 = 986$.
+                <br><br><b>Langkah 2: Cari bilangan kecil.</b>
+                Karena 986 adalah nilai dari 2 kali bilangan kecil, maka satu bilangan kecil adalah:
+                <br>$986 \div 2 = 493$.
+                <br><br><b>Langkah 3: Cari bilangan besar.</b>
+                Untuk menemukan bilangan yang lebih besar, tambahkan selisihnya kembali ke bilangan yang lebih kecil.
+                <br>$493 + 214 = 707$.</p>
+            </div>
+             <div class="pembahasan">
+                <b>2. Jawaban: 129 sapi</b>
+                <p><b>Analisis:</b> Ini adalah soal perbandingan sebelum dan sesudah yang cukup rumit. Kita harus bekerja mundur dari kondisi akhir.
+                <br><br><b>Langkah 1: Hitung total sapi yang hilang.</b>
+                Total sapi yang tidak lagi dimiliki petani adalah jumlah yang dijual ditambah yang mati.
+                <br>$375 + 12 = 387$ ekor sapi.
+                <br><br><b>Langkah 2: Pahami perbandingan unit.</b>
+                - Awalnya, Domba = 1 unit, Sapi = 2 unit.
+                - Akhirnya, Domba = 1 unit, Sapi = 0,5 unit (setengah dari domba).
+                <br><br><b>Langkah 3: Hitung perubahan dalam unit.</b>
+                Perubahan jumlah sapi adalah selisih antara unit awal dan unit akhir.
+                <br>$2 \text{ unit} - 0,5 \text{ unit} = 1,5 \text{ unit}$.
+                <br><br><b>Langkah 4: Hubungkan perubahan unit dengan jumlah sapi yang hilang.</b>
+                Perubahan sebesar 1,5 unit ini setara dengan 387 ekor sapi yang hilang.
+                <br>$1,5 \text{ unit} = 387$.
+                <br><br><b>Langkah 5: Cari jumlah sapi yang tersisa (0,5 unit).</b>
+                Untuk mencari nilai 0,5 unit, kita bisa membagi nilai 1,5 unit dengan 3.
+                <br>$0,5 \text{ unit} = 387 \div 3 = 129$.
+                <br>Jadi, ada <b>129</b> sapi yang tersisa.</p>
+            </div>
+             <div class="pembahasan">
+                <b>3. Jawaban: Vince = 714, Zac = 238, Jason = 119</b>
+                <p><b>Analisis:</b> Soal ini melibatkan perbandingan kelipatan. Total 952 stiker hanya milik Vince dan Zac. Stiker Jason dihitung setelah kita tahu jumlah stiker Zac.
+                <br><br><b>Langkah 1: Tentukan total unit untuk Vince dan Zac.</b>
+                - Zac = 1 unit.
+                - Vince = 3 unit.
+                Total unit mereka berdua adalah $1 + 3 = 4$ unit.
+                <br><br><b>Langkah 2: Cari nilai 1 unit.</b>
+                Total stiker mereka adalah 952, yang setara dengan 4 unit.
+                <br>$4 \text{ unit} = 952$.
+                <br>$1 \text{ unit} = 952 \div 4 = 238$ stiker. Ini adalah jumlah stiker Zac.
+                <br><br><b>Langkah 3: Hitung stiker Vince.</b>
+                Vince memiliki 3 unit stiker.
+                <br>$3 \times 238 = 714$ stiker.
+                <br><br><b>Langkah 4: Hitung stiker Jason.</b>
+                Jason memiliki setengah dari stiker Zac.
+                <br>$238 \div 2 = 119$ stiker.</p>
+            </div>
+            <div class="pembahasan">
+                <b>4. Jawaban: 2.000 cm atau 20 meter</b>
+                <p><b>Analisis:</b> Ini adalah soal perbandingan unit yang kompleks dengan beberapa langkah. Penting untuk menyamakan satuan terlebih dahulu.
+                <br><br><b>Langkah 1: Samakan satuan.</b>
+                Panjang ekstra Tali R adalah 3 meter, yang sama dengan $3 \times 100 = 300$ cm. Total panjang adalah 5.400 cm.
+                <br><br><b>Langkah 2: Definisikan unit.</b>
+                - Misalkan panjang Tali Q = 1u.
+                - Maka, panjang Tali P = 3u.
+                - Total panjang P dan Q = $1\text{u} + 3\text{u} = 4\text{u}$.
+                - Setengah dari total P dan Q = $4\text{u} \div 2 = 2\text{u}$.
+                - Panjang Tali R = $2\text{u} + 300$ cm.
+                <br><br><b>Langkah 3: Buat persamaan total panjang dan selesaikan.</b>
+                Total = P + Q + R.
+                $$ \begin{aligned} 5.400 &= 3\text{u} + 1\text{u} + (2\text{u} + 300) \\ 5.400 &= 6\text{u} + 300 \\ 5.400 - 300 &= 6\text{u} \\ 5.100 &= 6\text{u} \\ \text{u} &= 5.100 \div 6 \\ \text{u} &= 850 \text{ cm} \end{aligned} $$
+                <br><b>Langkah 4: Hitung panjang Tali R.</b>
+                Panjang Tali R = $2\text{u} + 300 = (2 \times 850) + 300 = 1.700 + 300 = 2.000$ cm.</p>
+            </div>
+            <div class="pembahasan">
+                <b>5. Jawaban: 140 anak</b>
+                <p><b>Analisis:</b> Soal "Sebelum dan Sesudah" yang kompleks. Kita bisa menggunakan aljabar untuk menyelesaikannya.
+                <br><br><b>Langkah 1: Definisikan kondisi awal.</b>
+                - Jumlah perempuan awal = P.
+                - Jumlah laki-laki awal = 3P.
+                - Total awal = $P + 3P = 4P$.
+                <br><br><b>Langkah 2: Definisikan kondisi akhir.</b>
+                - Jumlah perempuan akhir = $P + 25$.
+                - Jumlah laki-laki akhir = $3P - 75$.
+                <br><br><b>Langkah 3: Gunakan informasi total akhir untuk membuat persamaan.</b>
+                Total akhir = (Jumlah perempuan akhir) + (Jumlah laki-laki akhir) = 90.
+                $$ \begin{aligned} (P + 25) + (3P - 75) &= 90 \\ 4P - 50 &= 90 \\ 4P &= 90 + 50 \\ 4P &= 140 \\ P &= 140 \div 4 \\ P &= 35 \end{aligned} $$
+                Ini adalah jumlah perempuan pada awalnya.
+                <br><br><b>Langkah 4: Hitung total anak pada awalnya.</b>
+                Total awal = $4P = 4 \times 35 = 140$ anak.</p>
+            </div>
+            <div class="pembahasan">
+                <b>6. Jawaban: 16 dan 625</b>
+                <p><b>Analisis:</b> Kita harus mencari faktor-faktor dari 10.000 yang tidak mengandung angka nol.
+                <br><br><b>Langkah 1: Faktorisasi prima dari 10.000.</b>
+                $$ \begin{aligned} 10.000 &= 100 \times 100 \\ &= (10 \times 10) \times (10 \times 10) \\ &= (2 \times 5) \times (2 \times 5) \times (2 \times 5) \times (2 \times 5) \\ &= 2^4 \times 5^4 \end{aligned} $$
+                <br><b>Langkah 2: Kelompokkan faktor.</b>
+                Untuk menghindari angka nol, kita tidak boleh membuat kelipatan 10 (yaitu, pasangan 2 dan 5). Jadi, kita harus mengelompokkan semua angka 2 bersama dan semua angka 5 bersama.
+                <br>Kelompok pertama = $2^4 = 2 \times 2 \times 2 \times 2 = 16$.
+                <br>Kelompok kedua = $5^4 = 5 \times 5 \times 5 \times 5 = 625$.
+                <br><br><b>Langkah 3: Verifikasi.</b>
+                $16 \times 625 = 10.000$. Kedua bilangan tidak mengandung angka nol. Jadi jawabannya adalah <b>16 dan 625</b>.</p>
+            </div>
+             <div class="pembahasan">
+                <b>18. Jawaban: Rp 3.200.000</b>
+                <p><b>Analisis:</b> Soal ini meminta total pendapatan dari penjualan pagi dan sore.
+                <br><br><b>Langkah 1: Hitung jumlah burger yang terjual di pagi hari.</b>
+                <br>Jumlah burger pagi = Total pendapatan pagi / Harga per burger pagi
+                <br>$1.200.000 \div 30.000 = 40$ burger.
+                <br><br><b>Langkah 2: Hitung jumlah burger yang terjual di sore hari.</b>
+                Jumlahnya dua kali lipat dari penjualan pagi.
+                <br>$40 \times 2 = 80$ burger.
+                <br><br><b>Langkah 3: Hitung pendapatan di sore hari.</b>
+                <br>Pendapatan sore = Jumlah burger sore x Harga per burger sore
+                <br>$80 \times 25.000 = 2.000.000$.
+                <br><br><b>Langkah 4: Hitung total pendapatan hari itu.</b>
+                <br>Total pendapatan = Pendapatan pagi + Pendapatan sore
+                <br>Rp 1.200.000 + Rp 2.000.000 = Rp 3.200.000.</p>
+            </div>
+             <div class="pembahasan">
+                <b>19. Jawaban: Rp 2.565.000</b>
+                <p><b>Analisis:</b> Ini adalah soal perbandingan sebelum dan sesudah yang diselesaikan dengan aljabar.
+                <br><br><b>Langkah 1: Definisikan variabel.</b>
+                - Misalkan uang Anne pada awalnya adalah U.
+                - Maka, uang Phil pada awalnya adalah 3U.
+                <br><br><b>Langkah 2: Tulis kondisi setelah transfer uang.</b>
+                - Uang Anne menjadi: $U + 285.000$.
+                - Uang Phil menjadi: $3U - 285.000$.
+                <br><br><b>Langkah 3: Buat persamaan berdasarkan perbandingan akhir.</b>
+                Setelah transfer, uang Phil menjadi dua kali uang Anne.
+                $$ \begin{aligned} 3U - 285.000 &= 2 \times (U + 285.000) \\ 3U - 285.000 &= 2U + 570.000 \\ 3U - 2U &= 570.000 + 285.000 \\ U &= 855.000 \end{aligned} $$
+                Ini adalah jumlah uang Anne pada awalnya.
+                <br><br><b>Langkah 4: Hitung uang Phil pada awalnya.</b>
+                Uang Phil awal adalah 3U.
+                <br>$3 \times 855.000 = 2.565.000$.
+                <br>Jadi, uang Phil pada awalnya adalah <b>Rp 2.565.000</b>.</p>
+            </div>
+            <div class="pembahasan">
+                <b>20. Jawaban: 1, 2, dan 3</b>
+                <p><b>Analisis:</b> Ini adalah soal teka-teki logika yang bisa diselesaikan dengan metode coba-coba (guess and check). Kita mencari tiga bilangan A, B, dan C dimana $A + B + C = A \times B \times C$.
+                <br><br><b>Langkah 1: Gunakan angka-angka dasar.</b>
+                Angka 0 tidak mungkin, karena hasil perkaliannya akan selalu 0, sementara penjumlahannya belum tentu 0 (kecuali semua 0). Mari coba angka 1, karena perkalian dengan 1 tidak mengubah nilai.
+                <br><br><b>Langkah 2: Coba A = 1.</b>
+                Persamaannya menjadi: $1 + B + C = 1 \times B \times C$, atau $1 + B + C = B \times C$.
+                <br><br><b>Langkah 3: Coba B = 2.</b>
+                Masukkan B=2 ke persamaan baru:
+                $$ \begin{aligned} 1 + 2 + C &= 2 \times C \\ 3 + C &= 2C \\ 3 &= 2C - C \\ C &= 3 \end{aligned} $$
+                <br><b>Langkah 4: Verifikasi.</b>
+                Kita menemukan tiga bilangan: 1, 2, dan 3. Mari kita periksa:
+                - Penjumlahan: $1 + 2 + 3 = 6$.
+                - Perkalian: $1 \times 2 \times 3 = 6$.
+                Karena hasilnya sama, maka jawabannya benar.</p>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>
+
