@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modul Lengkap - Kelipatan, Faktor, FPB & KPK (SD)</title>
+    <title>Modul Lengkap - Kelipatan, Faktor, FPB & KPK (SD/SMP)</title>
     <script>
         window.MathJax = {
           tex: {
@@ -137,12 +137,16 @@
         .toc-list a { text-decoration: none; color: var(--primary-text); }
         .toc-list a:hover { text-decoration: underline; }
         
-        .latihan-item { display: grid; grid-template-columns: 1fr 0.7fr; gap: 20px; border-top: 1px dashed var(--border-color); padding-top: 15px; margin-top: 15px; break-inside: avoid; }
+        .latihan-item {
+            display: block;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 15px;
+            margin-top: 15px;
+            break-inside: avoid;
+        }
         .latihan-item:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
         
         .soal-item, .soal-latihan { margin-bottom: 15px; break-inside: avoid; overflow-wrap: break-word; word-wrap: break-word; }
-        
-        .coret-coret { border: 1px dashed #c0c0c0; min-height: 120px; padding: 10px; border-radius: 5px; background-color: #fafafa; }
         
         .pembahasan { background-color: #f9f9f9; border: 1px solid var(--border-color); padding: 15px; border-radius: 5px; margin-top: 10px; margin-bottom: 15px; overflow-wrap: break-word; }
         .pembahasan b { display: block; margin-bottom: 5px;}
@@ -150,10 +154,66 @@
         ol { padding-left: 20px; }
         ol.soal-list { padding-left: 0; list-style-position: inside; }
         ol.pilihan-ganda { list-style-type: none; padding-left: 20px; }
-        ol.pilihan-ganda li { margin-bottom: 8px; }
-        ol.pilihan-ganda li::before { content: attr(data-option) ". "; font-weight: bold; margin-right: 5px; }
+        ol.pilihan-ganda li {
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            padding: 5px 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            position: relative;
+        }
+        ol.pilihan-ganda li:hover { background-color: #f0f0f0; }
 
         .keterangan-soal { font-style: italic; font-size: 9pt; color: var(--secondary-text); margin-bottom: 10px; }
+
+        /* Interactive Styles */
+        .pilihan-ganda li.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+            font-weight: bold;
+        }
+        .pilihan-ganda li.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+        .pilihan-ganda li.correct::after {
+            content: '✔';
+            color: #155724;
+            font-weight: bold;
+            position: absolute;
+            right: 10px;
+        }
+        .pilihan-ganda li.incorrect::after {
+            content: '✖';
+            color: #721c24;
+            font-weight: bold;
+            position: absolute;
+            right: 10px;
+        }
+        .pilihan-ganda.answered li {
+            cursor: default;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        .pilihan-ganda.answered li.correct,
+        .pilihan-ganda.answered li.incorrect {
+            opacity: 1;
+        }
+        .lihat-pembahasan {
+            font-size: 9pt;
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-left: 20px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .lihat-pembahasan:hover {
+            color: #0056b3;
+        }
 
     </style>
 </head>
@@ -166,7 +226,7 @@
         <div class="content-wrapper">
             <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_tiy3nf_6017.png" alt="Math Specialist Logo">
             <h1 class="title">MODUL LENGKAP<br>KELIPATAN, FAKTOR, FPB & KPK</h1>
-            <p class="subtitle">Kumpulan Soal Matematika SD </p>
+            <p class="subtitle">Kumpulan Soal Matematika SD & SMP</p>
         </div>
     </section>
 
@@ -187,7 +247,6 @@
                 <li><a href="#bab3-teori">&nbsp;&nbsp;&nbsp;› 3.1 Teori Dasar FPB & KPK</a></li>
                 <li><a href="#bab3-contoh">&nbsp;&nbsp;&nbsp;› 3.2 Contoh Soal</a></li>
                 <li><a href="#bab3-latihan">&nbsp;&nbsp;&nbsp;› 3.3 Latihan Soal</a></li>
-                <li><a href="#pembahasan"><b>Bab 4: Kunci Jawaban & Pembahasan</b></a></li>
             </ul>
         </div>
     </section>
@@ -205,8 +264,8 @@
         <h4>Kelipatan Persekutuan</h4>
         <p>Kelipatan persekutuan dari dua bilangan atau lebih adalah kelipatan-kelipatan yang sama (bersekutu) dari bilangan-bilangan tersebut.</p>
         <ul>
-            <li>Kelipatan 4 adalah 4, 8, <b>12</b>, 16, 20, <b>24</b>, ...</li>
-            <li>Kelipatan 6 adalah 6, <b>12</b>, 18, <b>24</b>, 30, ...</li>
+            <li>Kelipatan 4 adalah 4, 8, 12, 16, 20, 24, ...</li>
+            <li>Kelipatan 6 adalah 6, 12, 18, 24, 30, ...</li>
             <li>Kelipatan persekutuan dari 4 dan 6 adalah 12, 24, 36, ...</li>
         </ul>
         <p>Konsep kelipatan persekutuan ini adalah dasar untuk memahami KPK (Kelipatan Persekutuan Terkecil).</p>
@@ -235,21 +294,365 @@
     <section id="bab1-latihan" class="page">
       <div class="content-wrapper">
         <h3>1.3 Latihan Soal: Kelipatan</h3>
-        <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Mudah</div><b>1.</b> Kelipatan bilangan 5 yang kurang dari 30 adalah...<ol class="pilihan-ganda"><li data-option="A">5, 10, 15, 20, 25, 30</li><li data-option="B">5, 10, 15, 20, 25</li><li data-option="C">5, 10, 15, 25</li><li data-option="D">10, 15, 20, 25</li></ol></div><div class="coret-coret"></div></div>
-        <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Mudah</div><b>2.</b> Tiga kelipatan pertama dari 12 adalah...<ol class="pilihan-ganda"><li data-option="A">12, 24, 32</li><li data-option="B">12, 24, 36</li><li data-option="C">12, 20, 30</li><li data-option="D">24, 36, 48</li></ol></div><div class="coret-coret"></div></div>
-        <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Mudah</div><b>3.</b> Bilangan kelipatan 4 setelah 20 adalah...<ol class="pilihan-ganda"><li data-option="A">21</li><li data-option="B">22</li><li data-option="C">24</li><li data-option="D">28</li></ol></div><div class="coret-coret"></div></div>
-        <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Mudah</div><b>4.</b> Apakah 91 merupakan kelipatan dari 7?<ol class="pilihan-ganda"><li data-option="A">Ya</li><li data-option="B">Tidak</li><li data-option="C">Mungkin</li><li data-option="D">Tidak dapat ditentukan</li></ol></div><div class="coret-coret"></div></div>
-        <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>5.</b> Semua kelipatan persekutuan dari 3 dan 5 yang kurang dari 50 adalah...<ol class="pilihan-ganda"><li data-option="A">15, 30, 45</li><li data-option="B">15, 30, 40, 50</li><li data-option="C">15, 25, 35, 45</li><li data-option="D">30, 45</li></ol></div><div class="coret-coret"></div></div>
-        <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>6.</b> Kelipatan 15 antara 50 dan 100 adalah...<ol class="pilihan-ganda"><li data-option="A">60, 70, 80, 90</li><li data-option="B">50, 65, 80, 95</li><li data-option="C">60, 75, 90</li><li data-option="D">75, 90, 105</li></ol></div><div class="coret-coret"></div></div>
-        <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>7.</b> Bilangan 144 merupakan kelipatan dari...<ol class="pilihan-ganda"><li data-option="A">6 dan 8</li><li data-option="B">8, 9, dan 12</li><li data-option="C">6, 8, 9, dan 12</li><li data-option="D">6, 9, dan 12</li></ol></div><div class="coret-coret"></div></div>
-        <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>8.</b> Kelipatan persekutuan terkecil (KPK) dari 8 dan 10 adalah...<ol class="pilihan-ganda"><li data-option="A">20</li><li data-option="B">40</li><li data-option="C">60</li><li data-option="D">80</li></ol></div><div class="coret-coret"></div></div>
-        <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>9.</b> Dua kelipatan persekutuan pertama dari 6 dan 9 adalah...<ol class="pilihan-ganda"><li data-option="A">12, 18</li><li data-option="B">18, 27</li><li data-option="C">18, 36</li><li data-option="D">9, 18</li></ol></div><div class="coret-coret"></div></div>
-        <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>10.</b> Berapa banyak bilangan kelipatan 7 antara 10 dan 60?<ol class="pilihan-ganda"><li data-option="A">6</li><li data-option="B">7</li><li data-option="C">8</li><li data-option="D">9</li></ol></div><div class="coret-coret"></div></div>
-        <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit | Soal Cerita</div><b>11.</b> Rina menabung setiap 4 hari sekali dan Santi setiap 6 hari sekali. Mereka menabung bersama pada tanggal 1 Januari. Dua tanggal berikutnya mereka akan menabung bersama lagi adalah...<ol class="pilihan-ganda"><li data-option="A">12 Januari dan 24 Januari</li><li data-option="B">13 Januari dan 25 Januari</li><li data-option="C">10 Januari dan 16 Januari</li><li data-option="D">13 Januari dan 26 Januari</li></ol></div><div class="coret-coret"></div></div>
-        <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit | Soal Cerita</div><b>12.</b> Ada dua lonceng, A berbunyi setiap 10 menit dan B setiap 15 menit. Jika keduanya berbunyi bersama pukul 08.00, pukul berapa mereka akan berbunyi bersama lagi?<ol class="pilihan-ganda"><li data-option="A">08.15</li><li data-option="B">08.30</li><li data-option="C">08.45</li><li data-option="D">09.00</li></ol></div><div class="coret-coret"></div></div>
-        <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit | Soal Cerita</div><b>13.</b> Dalam sebuah barisan, kursi diberi nomor urut. Setiap kursi kelipatan 3 diberi bantal biru dan setiap kursi kelipatan 4 diberi bantal merah. Kursi nomor berapa yang pertama kali memiliki dua bantal?<ol class="pilihan-ganda"><li data-option="A">7</li><li data-option="B">10</li><li data-option="C">12</li><li data-option="D">24</li></ol></div><div class="coret-coret"></div></div>
-        <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>14.</b> Tentukan bilangan terkecil yang jika dibagi 2, 3, dan 4 akan selalu bersisa 1.<ol class="pilihan-ganda"><li data-option="A">12</li><li data-option="B">13</li><li data-option="C">24</li><li data-option="D">25</li></ol></div><div class="coret-coret"></div></div>
-        <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>15.</b> Tentukan jumlah dari semua kelipatan 8 yang ada di antara 1 dan 50.<ol class="pilihan-ganda"><li data-option="A">156</li><li data-option="B">160</li><li data-option="C">168</li><li data-option="D">176</li></ol></div><div class="coret-coret"></div></div>
+        <div class="latihan-item">
+            <div class="soal-latihan">
+                <div class="keterangan-soal">Level: Mudah</div>
+                <b>1.</b> Kelipatan bilangan 5 yang kurang dari 30 adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">5, 10, 15, 20, 25, 30</li>
+                    <li data-option="B" data-correct="true">5, 10, 15, 20, 25</li>
+                    <li data-option="C">5, 10, 15, 25</li>
+                    <li data-option="D">10, 15, 20, 25</li>
+                </ol>
+                <span class="lihat-pembahasan">Lihat Pembahasan</span>
+            </div>
+            <div class="pembahasan" style="display: none;">
+                <b>Jawaban: B</b><br>
+                <b>Analisis Soal:</b> Kita diminta untuk mencari semua kelipatan dari 5 yang nilainya di bawah 30.<br>
+                <b>Konsep yang Digunakan:</b> Kelipatan bilangan adalah hasil kali bilangan tersebut dengan bilangan asli (1, 2, 3, ...).<br>
+                <b>Langkah-langkah Pengerjaan:</b>
+                <ol style="padding-left: 15px;">
+                    <li>$5 \times 1 = 5$</li>
+                    <li>$5 \times 2 = 10$</li>
+                    <li>$5 \times 3 = 15$</li>
+                    <li>$5 \times 4 = 20$</li>
+                    <li>$5 \times 5 = 25$</li>
+                    <li>$5 \times 6 = 30$</li>
+                </ol>
+                <b>Kesimpulan:</b> Daftar kelipatan 5 adalah 5, 10, 15, 20, 25, 30, dst. Karena soal meminta yang "kurang dari 30", maka angka 30 tidak termasuk. Jadi, jawaban yang benar adalah 5, 10, 15, 20, 25.
+            </div>
+        </div>
+        <div class="latihan-item">
+            <div class="soal-latihan">
+                <div class="keterangan-soal">Level: Mudah</div>
+                <b>2.</b> Tiga kelipatan pertama dari 12 adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">12, 24, 32</li>
+                    <li data-option="B" data-correct="true">12, 24, 36</li>
+                    <li data-option="C">12, 20, 30</li>
+                    <li data-option="D">24, 36, 48</li>
+                </ol>
+                <span class="lihat-pembahasan">Lihat Pembahasan</span>
+            </div>
+            <div class="pembahasan" style="display: none;">
+                <b>Jawaban: B</b><br>
+                <b>Analisis Soal:</b> Kita diminta mencari 3 kelipatan pertama dari bilangan 12.<br>
+                <b>Konsep yang Digunakan:</b> Kelipatan pertama berarti mengalikan bilangan dengan 1, 2, 3, dan seterusnya.<br>
+                <b>Langkah-langkah Pengerjaan:</b>
+                <ol style="padding-left: 15px;">
+                    <li>Kelipatan pertama: $12 \times 1 = 12$</li>
+                    <li>Kelipatan kedua: $12 \times 2 = 24$</li>
+                    <li>Kelipatan ketiga: $12 \times 3 = 36$</li>
+                </ol>
+                <b>Kesimpulan:</b> Jadi, tiga kelipatan pertama dari 12 adalah 12, 24, dan 36.
+            </div>
+        </div>
+        <div class="latihan-item">
+            <div class="soal-latihan">
+                <div class="keterangan-soal">Level: Mudah</div>
+                <b>3.</b> Bilangan kelipatan 4 setelah 20 adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">21</li>
+                    <li data-option="B">22</li>
+                    <li data-option="C" data-correct="true">24</li>
+                    <li data-option="D">28</li>
+                </ol>
+                <span class="lihat-pembahasan">Lihat Pembahasan</span>
+            </div>
+            <div class="pembahasan" style="display: none;">
+                <b>Jawaban: C</b><br>
+                <b>Analisis Soal:</b> Kita diminta mencari kelipatan 4 yang urutannya tepat setelah 20.<br>
+                <b>Konsep yang Digunakan:</b> Mendaftar kelipatan 4 atau menambahkan 4 pada kelipatan sebelumnya.<br>
+                <b>Langkah-langkah Pengerjaan:</b> Kita tahu bahwa $4 \times 5 = 20$. Kelipatan selanjutnya adalah hasil dari $4 \times 6 = 24$.<br>
+                <b>Kesimpulan:</b> Kelipatan 4 setelah 20 adalah 24.
+            </div>
+        </div>
+        <div class="latihan-item">
+            <div class="soal-latihan">
+                <div class="keterangan-soal">Level: Mudah</div>
+                <b>4.</b> Apakah 91 merupakan kelipatan dari 7?
+                <ol class="pilihan-ganda">
+                    <li data-option="A" data-correct="true">Ya</li>
+                    <li data-option="B">Tidak</li>
+                    <li data-option="C">Mungkin</li>
+                    <li data-option="D">Tidak dapat ditentukan</li>
+                </ol>
+                <span class="lihat-pembahasan">Lihat Pembahasan</span>
+            </div>
+            <div class="pembahasan" style="display: none;">
+                <b>Jawaban: A</b><br>
+                <b>Analisis Soal:</b> Kita perlu memeriksa apakah 91 bisa dibagi habis oleh 7.<br>
+                <b>Konsep yang Digunakan:</b> Sebuah bilangan A adalah kelipatan dari B jika A dibagi B tidak menghasilkan sisa.<br>
+                <b>Langkah-langkah Pengerjaan:</b> Lakukan pembagian: $91 \div 7$. $91 = 70 + 21$. $70 \div 7 = 10$ dan $21 \div 7 = 3$. Jadi, $91 \div 7 = 10 + 3 = 13$.<br>
+                <b>Kesimpulan:</b> Karena 91 dapat dibagi habis oleh 7 (hasilnya 13), maka 91 adalah kelipatan dari 7.
+            </div>
+        </div>
+        <div class="latihan-item">
+            <div class="soal-latihan">
+                <div class="keterangan-soal">Level: Sedang</div>
+                <b>5.</b> Semua kelipatan persekutuan dari 3 dan 5 yang kurang dari 50 adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A" data-correct="true">15, 30, 45</li>
+                    <li data-option="B">15, 30, 40, 50</li>
+                    <li data-option="C">15, 25, 35, 45</li>
+                    <li data-option="D">30, 45</li>
+                </ol>
+                <span class="lihat-pembahasan">Lihat Pembahasan</span>
+            </div>
+            <div class="pembahasan" style="display: none;">
+                <b>Jawaban: A</b><br>
+                <b>Analisis Soal:</b> Kita mencari bilangan yang merupakan kelipatan 3 sekaligus kelipatan 5, dan nilainya di bawah 50.<br>
+                <b>Konsep yang Digunakan:</b> Kelipatan persekutuan adalah kelipatan dari KPK (Kelipatan Persekutuan Terkecil) kedua bilangan.<br>
+                <b>Langkah-langkah Pengerjaan:</b>
+                <ol style="padding-left: 15px;">
+                    <li>Cari KPK dari 3 dan 5. Karena keduanya bilangan prima, KPK-nya adalah hasil kali keduanya: $3 \times 5 = 15$.</li>
+                    <li>Cari kelipatan dari 15 yang kurang dari 50: 15, 30, 45. Kelipatan selanjutnya (60) sudah lebih dari 50.</li>
+                </ol>
+                <b>Kesimpulan:</b> Jadi, kelipatan persekutuan yang memenuhi adalah 15, 30, dan 45.
+            </div>
+        </div>
+        <div class="latihan-item">
+            <div class="soal-latihan">
+                <div class="keterangan-soal">Level: Sedang</div>
+                <b>6.</b> Kelipatan 15 antara 50 dan 100 adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">60, 70, 80, 90</li>
+                    <li data-option="B">50, 65, 80, 95</li>
+                    <li data-option="C" data-correct="true">60, 75, 90</li>
+                    <li data-option="D">75, 90, 105</li>
+                </ol>
+                <span class="lihat-pembahasan">Lihat Pembahasan</span>
+            </div>
+            <div class="pembahasan" style="display: none;">
+                <b>Jawaban: C</b><br>
+                <b>Analisis Soal:</b> Kita mencari kelipatan 15 yang nilainya lebih dari 50 dan kurang dari 100.<br>
+                <b>Konsep yang Digunakan:</b> Mendaftar kelipatan bilangan.<br>
+                <b>Langkah-langkah Pengerjaan:</b> Kita mulai dengan kelipatan 15 yang mendekati 50. $15 \times 3 = 45$ (masih kurang). $15 \times 4 = 60$. $15 \times 5 = 75$. $15 \times 6 = 90$. $15 \times 7 = 105$ (sudah lebih).<br>
+                <b>Kesimpulan:</b> Kelipatan 15 yang berada di antara 50 dan 100 adalah 60, 75, dan 90.
+            </div>
+        </div>
+        <div class="latihan-item">
+            <div class="soal-latihan">
+                <div class="keterangan-soal">Level: Sedang</div>
+                <b>7.</b> Bilangan 144 merupakan kelipatan dari...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">6 dan 8</li>
+                    <li data-option="B">8, 9, dan 12</li>
+                    <li data-option="C" data-correct="true">6, 8, 9, dan 12</li>
+                    <li data-option="D">6, 9, dan 12</li>
+                </ol>
+                <span class="lihat-pembahasan">Lihat Pembahasan</span>
+            </div>
+            <div class="pembahasan" style="display: none;">
+                <b>Jawaban: C</b><br>
+                <b>Analisis Soal:</b> Kita harus memeriksa dari bilangan mana saja 144 bisa dibagi habis.<br>
+                <b>Konsep yang Digunakan:</b> Konsep faktor. Jika 144 kelipatan dari X, maka X adalah faktor dari 144.<br>
+                <b>Langkah-langkah Pengerjaan:</b>
+                 <ol style="padding-left: 15px;">
+                    <li>$144 \div 6 = 24$ (Benar)</li>
+                    <li>$144 \div 8 = 18$ (Benar)</li>
+                    <li>$144 \div 9 = 16$ (Benar)</li>
+                    <li>$144 \div 12 = 12$ (Benar)</li>
+                </ol>
+                <b>Kesimpulan:</b> Karena 144 habis dibagi oleh semua bilangan tersebut, maka pilihan yang paling lengkap dan benar adalah 6, 8, 9, dan 12.
+            </div>
+        </div>
+        <div class="latihan-item">
+            <div class="soal-latihan">
+                <div class="keterangan-soal">Level: Sedang</div>
+                <b>8.</b> Kelipatan persekutuan terkecil (KPK) dari 8 dan 10 adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">20</li>
+                    <li data-option="B" data-correct="true">40</li>
+                    <li data-option="C">60</li>
+                    <li data-option="D">80</li>
+                </ol>
+                <span class="lihat-pembahasan">Lihat Pembahasan</span>
+            </div>
+            <div class="pembahasan" style="display: none;">
+                 <b>Jawaban: B</b><br>
+                 <b>Analisis Soal:</b> Mencari kelipatan persekutuan dari 8 dan 10 yang nilainya paling kecil.<br>
+                 <b>Konsep yang Digunakan:</b> Mencari KPK.<br>
+                 <b>Langkah-langkah Pengerjaan (Metode Mendaftar):</b>
+                 <ol style="padding-left: 15px;">
+                    <li>Kelipatan 8: 8, 16, 24, 32, <b>40</b>, 48, ...</li>
+                    <li>Kelipatan 10: 10, 20, 30, <b>40</b>, 50, ...</li>
+                 </ol>
+                 <b>Kesimpulan:</b> Kelipatan persekutuan pertama yang kita temukan adalah 40. Maka, KPK dari 8 dan 10 adalah 40.
+            </div>
+        </div>
+        <div class="latihan-item">
+            <div class="soal-latihan">
+                <div class="keterangan-soal">Level: Sedang</div>
+                <b>9.</b> Dua kelipatan persekutuan pertama dari 6 dan 9 adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">12, 18</li>
+                    <li data-option="B">18, 27</li>
+                    <li data-option="C" data-correct="true">18, 36</li>
+                    <li data-option="D">9, 18</li>
+                </ol>
+                <span class="lihat-pembahasan">Lihat Pembahasan</span>
+            </div>
+            <div class="pembahasan" style="display: none;">
+                <b>Jawaban: C</b><br>
+                <b>Analisis Soal:</b> Mencari dua kelipatan bersama pertama dari 6 dan 9.<br>
+                <b>Konsep yang Digunakan:</b> Kelipatan persekutuan adalah kelipatan dari KPK.<br>
+                <b>Langkah-langkah Pengerjaan:</b>
+                 <ol style="padding-left: 15px;">
+                    <li>Cari KPK dari 6 dan 9. Kelipatan 6: 6, 12, <b>18</b>, ... Kelipatan 9: 9, <b>18</b>, ... KPK-nya adalah 18.</li>
+                    <li>Kelipatan persekutuan adalah kelipatan dari 18.</li>
+                    <li>Kelipatan persekutuan pertama: $18 \times 1 = 18$.</li>
+                    <li>Kelipatan persekutuan kedua: $18 \times 2 = 36$.</li>
+                 </ol>
+                 <b>Kesimpulan:</b> Dua kelipatan persekutuan pertama dari 6 dan 9 adalah 18 dan 36.
+            </div>
+        </div>
+        <div class="latihan-item">
+            <div class="soal-latihan">
+                <div class="keterangan-soal">Level: Sedang</div>
+                <b>10.</b> Berapa banyak bilangan kelipatan 7 antara 10 dan 60?
+                <ol class="pilihan-ganda">
+                    <li data-option="A">6</li>
+                    <li data-option="B" data-correct="true">7</li>
+                    <li data-option="C">8</li>
+                    <li data-option="D">9</li>
+                </ol>
+                <span class="lihat-pembahasan">Lihat Pembahasan</span>
+            </div>
+            <div class="pembahasan" style="display: none;">
+                <b>Jawaban: B</b><br>
+                <b>Analisis Soal:</b> Menghitung jumlah kelipatan 7 yang lebih besar dari 10 dan lebih kecil dari 60.<br>
+                <b>Konsep yang Digunakan:</b> Mendaftar kelipatan.<br>
+                <b>Langkah-langkah Pengerjaan:</b>
+                 <ol style="padding-left: 15px;">
+                    <li>Mulai dari kelipatan 7 yang lebih dari 10: $7 \times 2 = 14$.</li>
+                    <li>Lanjutkan mendaftar: 21, 28, 35, 42, 49, 56.</li>
+                    <li>Kelipatan berikutnya, $7 \times 9 = 63$, sudah di luar jangkauan.</li>
+                    <li>Hitung jumlah bilangan yang terdaftar: 14, 21, 28, 35, 42, 49, 56. Total ada 7 bilangan.</li>
+                 </ol>
+                 <b>Kesimpulan:</b> Ada 7 bilangan kelipatan 7 antara 10 dan 60.
+            </div>
+        </div>
+        <div class="latihan-item">
+            <div class="soal-latihan">
+                <div class="keterangan-soal">Level: Sulit | Soal Cerita</div>
+                <b>11.</b> Rina menabung setiap 4 hari sekali dan Santi setiap 6 hari sekali. Mereka menabung bersama pada tanggal 1 Januari. Dua tanggal berikutnya mereka akan menabung bersama lagi adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">12 Januari dan 24 Januari</li>
+                    <li data-option="B" data-correct="true">13 Januari dan 25 Januari</li>
+                    <li data-option="C">10 Januari dan 16 Januari</li>
+                    <li data-option="D">13 Januari dan 26 Januari</li>
+                </ol>
+                <span class="lihat-pembahasan">Lihat Pembahasan</span>
+            </div>
+            <div class="pembahasan" style="display: none;">
+                 <b>Jawaban: B</b><br>
+                <b>Analisis Soal:</b> Soal ini menanyakan kapan dua jadwal yang berulang akan terjadi bersamaan lagi.<br>
+                <b>Konsep yang Digunakan:</b> Kata kunci "bersama lagi" menandakan kita harus mencari KPK.<br>
+                <b>Langkah-langkah Pengerjaan:</b>
+                 <ol style="padding-left: 15px;">
+                    <li>Cari KPK dari 4 dan 6. Kelipatan 4: 4, 8, <b>12</b>, ... Kelipatan 6: 6, <b>12</b>, ... KPK-nya adalah 12. Ini berarti mereka menabung bersama setiap 12 hari.</li>
+                    <li>Pertemuan pertama: 1 Januari.</li>
+                    <li>Pertemuan kedua: 12 hari setelah 1 Januari, yaitu tanggal $1 + 12 = 13$ Januari.</li>
+                    <li>Pertemuan ketiga: 12 hari setelah 13 Januari, yaitu tanggal $13 + 12 = 25$ Januari.</li>
+                 </ol>
+                 <b>Kesimpulan:</b> Dua tanggal berikutnya adalah 13 Januari dan 25 Januari.
+            </div>
+        </div>
+        <div class="latihan-item">
+            <div class="soal-latihan">
+                <div class="keterangan-soal">Level: Sulit | Soal Cerita</div>
+                <b>12.</b> Ada dua lonceng, A berbunyi setiap 10 menit dan B setiap 15 menit. Jika keduanya berbunyi bersama pukul 08.00, pukul berapa mereka akan berbunyi bersama lagi?
+                <ol class="pilihan-ganda">
+                    <li data-option="A">08.15</li>
+                    <li data-option="B" data-correct="true">08.30</li>
+                    <li data-option="C">08.45</li>
+                    <li data-option="D">09.00</li>
+                </ol>
+                <span class="lihat-pembahasan">Lihat Pembahasan</span>
+            </div>
+            <div class="pembahasan" style="display: none;">
+                <b>Jawaban: B</b><br>
+                <b>Analisis Soal:</b> Mencari kapan dua kejadian periodik terjadi bersamaan.<br>
+                <b>Konsep yang Digunakan:</b> Mencari KPK dari interval waktu (10 menit dan 15 menit).<br>
+                <b>Langkah-langkah Pengerjaan:</b>
+                 <ol style="padding-left: 15px;">
+                    <li>Cari KPK dari 10 dan 15. Kelipatan 10: 10, 20, <b>30</b>, ... Kelipatan 15: 15, <b>30</b>, ... KPK-nya adalah 30.</li>
+                    <li>Ini berarti lonceng akan berbunyi bersama setiap 30 menit.</li>
+                    <li>Jika mereka berbunyi bersama pukul 08.00, maka 30 menit kemudian adalah pukul 08.30.</li>
+                 </ol>
+                 <b>Kesimpulan:</b> Mereka akan berbunyi bersama lagi pada pukul 08.30.
+            </div>
+        </div>
+        <div class="latihan-item">
+            <div class="soal-latihan">
+                <div class="keterangan-soal">Level: Sulit | Soal Cerita</div>
+                <b>13.</b> Dalam sebuah barisan, kursi diberi nomor urut. Setiap kursi kelipatan 3 diberi bantal biru dan setiap kursi kelipatan 4 diberi bantal merah. Kursi nomor berapa yang pertama kali memiliki dua bantal?
+                <ol class="pilihan-ganda">
+                    <li data-option="A">7</li>
+                    <li data-option="B">10</li>
+                    <li data-option="C" data-correct="true">12</li>
+                    <li data-option="D">24</li>
+                </ol>
+                <span class="lihat-pembahasan">Lihat Pembahasan</span>
+            </div>
+            <div class="pembahasan" style="display: none;">
+                <b>Jawaban: C</b><br>
+                <b>Analisis Soal:</b> Kita mencari nomor kursi yang merupakan kelipatan 3 dan juga kelipatan 4. "Pertama kali" berarti kita mencari yang terkecil.<br>
+                <b>Konsep yang Digunakan:</b> Mencari KPK dari 3 dan 4.<br>
+                <b>Langkah-langkah Pengerjaan:</b> KPK dari 3 dan 4 adalah 12. <br>
+                <b>Kesimpulan:</b> Kursi nomor 12 adalah kursi pertama yang merupakan kelipatan 3 dan 4, sehingga menjadi kursi pertama yang memiliki dua bantal.
+            </div>
+        </div>
+        <div class="latihan-item">
+            <div class="soal-latihan">
+                <div class="keterangan-soal">Level: Sulit</div>
+                <b>14.</b> Tentukan bilangan terkecil yang jika dibagi 2, 3, dan 4 akan selalu bersisa 1.
+                <ol class="pilihan-ganda">
+                    <li data-option="A">12</li>
+                    <li data-option="B" data-correct="true">13</li>
+                    <li data-option="C">24</li>
+                    <li data-option="D">25</li>
+                </ol>
+                <span class="lihat-pembahasan">Lihat Pembahasan</span>
+            </div>
+            <div class="pembahasan" style="display: none;">
+                <b>Jawaban: B</b><br>
+                <b>Analisis Soal:</b> Kita mencari sebuah bilangan yang jika dikurangi 1, akan habis dibagi oleh 2, 3, dan 4. "Bilangan terkecil" adalah petunjuknya.<br>
+                <b>Konsep yang Digunakan:</b> Mencari KPK lalu menambahkan sisa.<br>
+                <b>Langkah-langkah Pengerjaan:</b>
+                 <ol style="padding-left: 15px;">
+                    <li>Cari bilangan terkecil yang habis dibagi 2, 3, dan 4. Ini adalah KPK dari 2, 3, dan 4.</li>
+                    <li>KPK(2, 3, 4) adalah 12.</li>
+                    <li>Karena harus selalu bersisa 1, maka kita tambahkan 1 pada KPK tersebut: $12 + 1 = 13$.</li>
+                 </ol>
+                 <b>Kesimpulan:</b> Bilangan tersebut adalah 13. (13:2=6 sisa 1; 13:3=4 sisa 1; 13:4=3 sisa 1).
+            </div>
+        </div>
+        <div class="latihan-item">
+            <div class="soal-latihan">
+                <div class="keterangan-soal">Level: Sulit</div>
+                <b>15.</b> Tentukan jumlah dari semua kelipatan 8 yang ada di antara 1 dan 50.
+                <ol class="pilihan-ganda">
+                    <li data-option="A">156</li>
+                    <li data-option="B">160</li>
+                    <li data-option="C" data-correct="true">168</li>
+                    <li data-option="D">176</li>
+                </ol>
+                <span class="lihat-pembahasan">Lihat Pembahasan</span>
+            </div>
+            <div class="pembahasan" style="display: none;">
+                <b>Jawaban: C</b><br>
+                <b>Analisis Soal:</b> Kita harus mencari semua kelipatan 8 antara 1-50, lalu menjumlahkannya.<br>
+                <b>Konsep yang Digunakan:</b> Mendaftar kelipatan dan penjumlahan.<br>
+                <b>Langkah-langkah Pengerjaan:</b>
+                 <ol style="padding-left: 15px;">
+                    <li>Daftar kelipatan 8 yang kurang dari 50: 8, 16, 24, 32, 40, 48.</li>
+                    <li>Jumlahkan semua bilangan tersebut: $8 + 16 + 24 + 32 + 40 + 48 = 168$.</li>
+                 </ol>
+                 <b>Kesimpulan:</b> Jumlahnya adalah 168.
+            </div>
+        </div>
       </div>
     </section>
 
@@ -298,21 +701,362 @@
     <section id="bab2-latihan" class="page">
         <div class="content-wrapper">
             <h3>2.3 Latihan Soal: Faktor</h3>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Mudah</div><b>1.</b> Semua faktor dari bilangan 36 adalah...<ol class="pilihan-ganda"><li data-option="A">1, 2, 3, 4, 6, 9, 12, 18, 36</li><li data-option="B">1, 2, 3, 4, 6, 8, 9, 12, 18, 36</li><li data-option="C">1, 2, 4, 6, 9, 12, 18, 36</li><li data-option="D">1, 2, 3, 4, 6, 9, 12, 36</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Mudah</div><b>2.</b> Faktor dari 45 yang juga merupakan bilangan ganjil adalah...<ol class="pilihan-ganda"><li data-option="A">1, 3, 5, 9, 15</li><li data-option="B">1, 3, 5, 9, 15, 45</li><li data-option="C">3, 5, 9, 15</li><li data-option="D">1, 5, 9, 45</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Mudah</div><b>3.</b> Bilangan prima yang kurang dari 15 adalah...<ol class="pilihan-ganda"><li data-option="A">2, 3, 5, 7, 9, 11, 13</li><li data-option="B">1, 2, 3, 5, 7, 11, 13</li><li data-option="C">2, 3, 5, 7, 11, 13</li><li data-option="D">3, 5, 7, 11, 13</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Mudah</div><b>4.</b> Apakah 8 merupakan faktor dari 108?<ol class="pilihan-ganda"><li data-option="A">Ya</li><li data-option="B">Tidak</li><li data-option="C">Mungkin</li><li data-option="D">Tidak dapat ditentukan</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>5.</b> Faktorisasi prima dari 150 adalah...<ol class="pilihan-ganda"><li data-option="A">$2 \times 3 \times 25$</li><li data-option="B">$2 \times 3 \times 5^2$</li><li data-option="C">$2 \times 75$</li><li data-option="D">$6 \times 5^2$</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>6.</b> Semua faktor persekutuan dari 40 dan 50 adalah...<ol class="pilihan-ganda"><li data-option="A">1, 2, 5, 10</li><li data-option="B">1, 2, 4, 5, 10</li><li data-option="C">1, 2, 5, 10, 20</li><li data-option="D">1, 5, 10</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>7.</b> Faktor prima dari bilangan 70 adalah...<ol class="pilihan-ganda"><li data-option="A">2, 3, 5</li><li data-option="B">2, 5, 7</li><li data-option="C">3, 5, 7</li><li data-option="D">7, 10</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>8.</b> Berapa banyak faktor yang dimiliki oleh bilangan 100?<ol class="pilihan-ganda"><li data-option="A">6</li><li data-option="B">8</li><li data-option="C">9</li><li data-option="D">10</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>9.</b> Faktor persekutuan terbesar (FPB) dari 28 dan 42 adalah...<ol class="pilihan-ganda"><li data-option="A">7</li><li data-option="B">14</li><li data-option="C">21</li><li data-option="D">28</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>10.</b> Bilangan yang memiliki tepat 3 faktor disebut bilangan kuadrat prima. Manakah di bawah ini yang termasuk kategori tersebut?<ol class="pilihan-ganda"><li data-option="A">4, 9, 27</li><li data-option="B">4, 9</li><li data-option="C">4, 9, 25</li><li data-option="D">9, 25</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit | Soal Cerita</div><b>11.</b> Seorang kolektor memiliki 32 prangko Indonesia dan 48 prangko luar negeri. Ia ingin menempelkannya dalam album dimana setiap halaman berisi prangko Indonesia dan luar negeri dalam jumlah yang sama. Berapa jumlah halaman paling banyak yang bisa dibuat?<ol class="pilihan-ganda"><li data-option="A">8</li><li data-option="B">12</li><li data-option="C">16</li><li data-option="D">32</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit | Soal Cerita</div><b>12.</b> Sebuah taman berbentuk persegi panjang memiliki luas 60 $m^2$. Jika panjang dan lebarnya (dalam meter) adalah bilangan asli, manakah yang berisi semua kemungkinan ukurannya?<ol class="pilihan-ganda"><li data-option="A">(1,60), (2,30), (5,12)</li><li data-option="B">(1,60), (2,30), (3,20), (4,15), (5,12), (6,10)</li><li data-option="C">(2,30), (4,15), (6,10)</li><li data-option="D">(1,60), (3,20), (5,12)</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit | Soal Cerita</div><b>13.</b> Untuk ulang tahun, Budi menyiapkan 24 balon merah dan 30 balon biru untuk diikat menjadi beberapa rangkaian. Setiap rangkaian memiliki jumlah balon merah dan biru yang sama. Berapa saja kemungkinan jumlah rangkaian yang dapat dibuat?<ol class="pilihan-ganda"><li data-option="A">1, 2, 3, 6</li><li data-option="B">1, 2, 4, 6</li><li data-option="C">1, 2, 3, 4, 6</li><li data-option="D">2, 3, 6</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>14.</b> Bilangan A = $2^2 \times 5$. Bilangan B = $2 \times 3 \times 5$. Faktor persekutuan dari A dan B adalah...<ol class="pilihan-ganda"><li data-option="A">1, 2, 5</li><li data-option="B">1, 2, 10</li><li data-option="C">1, 2, 5, 10</li><li data-option="D">2, 5, 10</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>15.</b> Manakah di bawah ini yang merupakan pasangan dua bilangan prima yang jika dijumlahkan hasilnya 24?<ol class="pilihan-ganda"><li data-option="A">5 dan 19</li><li data-option="B">7 dan 17</li><li data-option="C">11 dan 13</li><li data-option="D">Semua benar</li></ol></div><div class="coret-coret"></div></div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Mudah</div>
+                    <b>1.</b> Semua faktor dari bilangan 36 adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A" data-correct="true">1, 2, 3, 4, 6, 9, 12, 18, 36</li>
+                        <li data-option="B">1, 2, 3, 4, 6, 8, 9, 12, 18, 36</li>
+                        <li data-option="C">1, 2, 4, 6, 9, 12, 18, 36</li>
+                        <li data-option="D">1, 2, 3, 4, 6, 9, 12, 36</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: A</b><br>
+                    <b>Analisis Soal:</b> Kita diminta mencari semua bilangan yang dapat membagi habis 36.<br>
+                    <b>Konsep yang Digunakan:</b> Mencari pasangan perkalian yang menghasilkan 36.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ul style="padding-left: 15px;">
+                        <li>$1 \times 36$</li>
+                        <li>$2 \times 18$</li>
+                        <li>$3 \times 12$</li>
+                        <li>$4 \times 9$</li>
+                        <li>$6 \times 6$</li>
+                    </ul>
+                    <b>Kesimpulan:</b> Jika diurutkan, faktor-faktornya adalah 1, 2, 3, 4, 6, 9, 12, 18, 36.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Mudah</div>
+                    <b>2.</b> Faktor dari 45 yang juga merupakan bilangan ganjil adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">1, 3, 5, 9, 15</li>
+                        <li data-option="B" data-correct="true">1, 3, 5, 9, 15, 45</li>
+                        <li data-option="C">3, 5, 9, 15</li>
+                        <li data-option="D">1, 5, 9, 45</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: B</b><br>
+                    <b>Analisis Soal:</b> Mencari faktor dari 45, lalu menyaringnya untuk hanya menyisakan bilangan ganjil.<br>
+                    <b>Konsep yang Digunakan:</b> Mendaftar faktor dan identifikasi bilangan ganjil.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li>Faktor dari 45 adalah: 1, 3, 5, 9, 15, 45.</li>
+                        <li>Semua bilangan tersebut adalah ganjil (tidak habis dibagi 2).</li>
+                    </ol>
+                    <b>Kesimpulan:</b> Semua faktor dari 45 adalah bilangan ganjil.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Mudah</div>
+                    <b>3.</b> Bilangan prima yang kurang dari 15 adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">2, 3, 5, 7, 9, 11, 13</li>
+                        <li data-option="B">1, 2, 3, 5, 7, 11, 13</li>
+                        <li data-option="C" data-correct="true">2, 3, 5, 7, 11, 13</li>
+                        <li data-option="D">3, 5, 7, 11, 13</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: C</b><br>
+                    <b>Analisis Soal:</b> Mencari semua bilangan prima di bawah 15.<br>
+                    <b>Konsep yang Digunakan:</b> Bilangan prima adalah bilangan lebih dari 1 yang hanya memiliki dua faktor, yaitu 1 dan dirinya sendiri.<br>
+                    <b>Langkah-langkah Pengerjaan:</b> Kita cek bilangan satu per satu. 1 bukan prima. 9 bukan prima (faktornya 1, 3, 9).<br>
+                    <b>Kesimpulan:</b> Bilangan prima yang kurang dari 15 adalah 2, 3, 5, 7, 11, dan 13.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Mudah</div>
+                    <b>4.</b> Apakah 8 merupakan faktor dari 108?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">Ya</li>
+                        <li data-option="B" data-correct="true">Tidak</li>
+                        <li data-option="C">Mungkin</li>
+                        <li data-option="D">Tidak dapat ditentukan</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: B</b><br>
+                    <b>Analisis Soal:</b> Kita perlu memeriksa apakah 108 habis dibagi oleh 8.<br>
+                    <b>Konsep yang Digunakan:</b> Definisi faktor.<br>
+                    <b>Langkah-langkah Pengerjaan:</b> Lakukan pembagian $108 \div 8$. Hasilnya adalah 13 dengan sisa 4 (atau 13,5).<br>
+                    <b>Kesimpulan:</b> Karena pembagiannya tidak habis (ada sisa), maka 8 bukan merupakan faktor dari 108.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sedang</div>
+                    <b>5.</b> Faktorisasi prima dari 150 adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$2 \times 3 \times 25$</li>
+                        <li data-option="B" data-correct="true">$2 \times 3 \times 5^2$</li>
+                        <li data-option="C">$2 \times 75$</li>
+                        <li data-option="D">$6 \times 5^2$</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: B</b><br>
+                    <b>Analisis Soal:</b> Menguraikan 150 menjadi perkalian bilangan-bilangan prima.<br>
+                    <b>Konsep yang Digunakan:</b> Faktorisasi prima, bisa menggunakan pohon faktor.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    $150 = 10 \times 15$. Uraikan lebih lanjut: $10 = 2 \times 5$ dan $15 = 3 \times 5$.
+                    Jadi, $150 = (2 \times 5) \times (3 \times 5) = 2 \times 3 \times 5 \times 5$.<br>
+                    <b>Kesimpulan:</b> Bentuk pangkatnya adalah $2 \times 3 \times 5^2$.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sedang</div>
+                    <b>6.</b> Semua faktor persekutuan dari 40 dan 50 adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A" data-correct="true">1, 2, 5, 10</li>
+                        <li data-option="B">1, 2, 4, 5, 10</li>
+                        <li data-option="C">1, 2, 5, 10, 20</li>
+                        <li data-option="D">1, 5, 10</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: A</b><br>
+                    <b>Analisis Soal:</b> Mencari faktor-faktor yang sama yang dimiliki oleh 40 dan 50.<br>
+                    <b>Konsep yang Digunakan:</b> Mendaftar faktor dari kedua bilangan dan mencari irisannya.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ul style="padding-left: 15px;">
+                        <li>Faktor 40: <b>1, 2,</b> 4, <b>5,</b> 8, <b>10,</b> 20, 40.</li>
+                        <li>Faktor 50: <b>1, 2, 5, 10,</b> 25, 50.</li>
+                    </ul>
+                    <b>Kesimpulan:</b> Faktor yang sama (persekutuan) adalah 1, 2, 5, dan 10.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sedang</div>
+                    <b>7.</b> Faktor prima dari bilangan 70 adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">2, 3, 5</li>
+                        <li data-option="B" data-correct="true">2, 5, 7</li>
+                        <li data-option="C">3, 5, 7</li>
+                        <li data-option="D">7, 10</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: B</b><br>
+                    <b>Analisis Soal:</b> Mencari bilangan-bilangan prima yang menjadi penyusun 70.<br>
+                    <b>Konsep yang Digunakan:</b> Faktorisasi prima.<br>
+                    <b>Langkah-langkah Pengerjaan:</b> Uraikan 70: $70 = 10 \times 7 = (2 \times 5) \times 7$.<br>
+                    <b>Kesimpulan:</b> Faktor-faktor prima yang menyusun 70 adalah 2, 5, dan 7.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sedang</div>
+                    <b>8.</b> Berapa banyak faktor yang dimiliki oleh bilangan 100?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">6</li>
+                        <li data-option="B">8</li>
+                        <li data-option="C" data-correct="true">9</li>
+                        <li data-option="D">10</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: C</b><br>
+                    <b>Analisis Soal:</b> Menghitung jumlah total faktor dari 100.<br>
+                    <b>Konsep yang Digunakan:</b> Mendaftar faktor.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    Faktor dari 100: (1, 100), (2, 50), (4, 25), (5, 20), (10, 10).
+                    Daftar faktornya: 1, 2, 4, 5, 10, 20, 25, 50, 100.<br>
+                    <b>Kesimpulan:</b> Jika dihitung, ada 9 faktor.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sedang</div>
+                    <b>9.</b> Faktor persekutuan terbesar (FPB) dari 28 dan 42 adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">7</li>
+                        <li data-option="B" data-correct="true">14</li>
+                        <li data-option="C">21</li>
+                        <li data-option="D">28</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: B</b><br>
+                    <b>Analisis Soal:</b> Mencari faktor persekutuan dari 28 dan 42 yang nilainya paling besar.<br>
+                    <b>Konsep yang Digunakan:</b> Mencari FPB.<br>
+                    <b>Langkah-langkah Pengerjaan (Metode Mendaftar):</b>
+                    <ul style="padding-left: 15px;">
+                        <li>Faktor 28: 1, 2, 4, 7, <b>14</b>, 28.</li>
+                        <li>Faktor 42: 1, 2, 3, 6, 7, <b>14</b>, 21, 42.</li>
+                    </ul>
+                    <b>Kesimpulan:</b> Faktor persekutuan terbesarnya adalah 14.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sedang</div>
+                    <b>10.</b> Bilangan yang memiliki tepat 3 faktor disebut bilangan kuadrat prima. Manakah di bawah ini yang termasuk kategori tersebut?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">4, 9, 27</li>
+                        <li data-option="B">4, 9</li>
+                        <li data-option="C" data-correct="true">4, 9, 25</li>
+                        <li data-option="D">9, 25</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: C</b><br>
+                    <b>Analisis Soal:</b> Mencari bilangan-bilangan yang merupakan hasil kuadrat dari sebuah bilangan prima.<br>
+                    <b>Konsep yang Digunakan:</b> Definisi faktor dan bilangan prima.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ul style="padding-left: 15px;">
+                        <li>Faktor 4 (dari $2^2$): 1, 2, 4 (3 faktor).</li>
+                        <li>Faktor 9 (dari $3^2$): 1, 3, 9 (3 faktor).</li>
+                        <li>Faktor 25 (dari $5^2$): 1, 5, 25 (3 faktor).</li>
+                        <li>Faktor 27 (dari $3^3$): 1, 3, 9, 27 (4 faktor).</li>
+                    </ul>
+                    <b>Kesimpulan:</b> Bilangan yang memiliki tepat 3 faktor adalah 4, 9, dan 25.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sulit | Soal Cerita</div>
+                    <b>11.</b> Seorang kolektor memiliki 32 prangko Indonesia dan 48 prangko luar negeri. Ia ingin menempelkannya dalam album dimana setiap halaman berisi prangko Indonesia dan luar negeri dalam jumlah yang sama. Berapa jumlah halaman paling banyak yang bisa dibuat?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">8</li>
+                        <li data-option="B">12</li>
+                        <li data-option="C" data-correct="true">16</li>
+                        <li data-option="D">32</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: C</b><br>
+                    <b>Analisis Soal:</b> Membagi dua jenis benda ke dalam kelompok-kelompok dengan jumlah yang sama rata dan "paling banyak".<br>
+                    <b>Konsep yang Digunakan:</b> Kata kunci "paling banyak" dan "jumlah yang sama" menunjukkan kita harus mencari FPB.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li>Faktorisasi prima 32: $2^5$.</li>
+                        <li>Faktorisasi prima 48: $2^4 \times 3$.</li>
+                        <li>FPB diambil dari faktor yang sama dengan pangkat terkecil: $2^4 = 16$.</li>
+                    </ol>
+                    <b>Kesimpulan:</b> Jumlah halaman paling banyak yang bisa dibuat adalah 16.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sulit | Soal Cerita</div>
+                    <b>12.</b> Sebuah taman berbentuk persegi panjang memiliki luas 60 $m^2$. Jika panjang dan lebarnya (dalam meter) adalah bilangan asli, manakah yang berisi semua kemungkinan ukurannya?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">(1,60), (2,30), (5,12)</li>
+                        <li data-option="B" data-correct="true">(1,60), (2,30), (3,20), (4,15), (5,12), (6,10)</li>
+                        <li data-option="C">(2,30), (4,15), (6,10)</li>
+                        <li data-option="D">(1,60), (3,20), (5,12)</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: B</b><br>
+                    <b>Analisis Soal:</b> Mencari semua pasangan bilangan asli yang jika dikalikan hasilnya 60.<br>
+                    <b>Konsep yang Digunakan:</b> Ini sama dengan mencari semua pasangan faktor dari 60.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ul style="padding-left: 15px;">
+                        <li>$1 \times 60$</li>
+                        <li>$2 \times 30$</li>
+                        <li>$3 \times 20$</li>
+                        <li>$4 \times 15$</li>
+                        <li>$5 \times 12$</li>
+                        <li>$6 \times 10$</li>
+                    </ul>
+                    <b>Kesimpulan:</b> Pilihan B berisi semua pasangan faktor tersebut.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sulit | Soal Cerita</div>
+                    <b>13.</b> Untuk ulang tahun, Budi menyiapkan 24 balon merah dan 30 balon biru untuk diikat menjadi beberapa rangkaian. Setiap rangkaian memiliki jumlah balon merah dan biru yang sama. Berapa saja kemungkinan jumlah rangkaian yang dapat dibuat?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A" data-correct="true">1, 2, 3, 6</li>
+                        <li data-option="B">1, 2, 4, 6</li>
+                        <li data-option="C">1, 2, 3, 4, 6</li>
+                        <li data-option="D">2, 3, 6</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: A</b><br>
+                    <b>Analisis Soal:</b> Soal ini menanyakan berapa saja jumlah kelompok yang bisa dibuat agar pembagiannya merata, bukan hanya yang "paling banyak".<br>
+                    <b>Konsep yang Digunakan:</b> Mencari semua faktor persekutuan dari 24 dan 30.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ul style="padding-left: 15px;">
+                        <li>Faktor 24: <b>1, 2, 3,</b> 4, <b>6,</b> 8, 12, 24.</li>
+                        <li>Faktor 30: <b>1, 2, 3,</b> 5, <b>6,</b> 10, 15, 30.</li>
+                    </ul>
+                    <b>Kesimpulan:</b> Faktor persekutuan (jumlah rangkaian yang mungkin) adalah 1, 2, 3, dan 6.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sulit</div>
+                    <b>14.</b> Bilangan A = $2^2 \times 5$. Bilangan B = $2 \times 3 \times 5$. Faktor persekutuan dari A dan B adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">1, 2, 5</li>
+                        <li data-option="B">1, 2, 10</li>
+                        <li data-option="C" data-correct="true">1, 2, 5, 10</li>
+                        <li data-option="D">2, 5, 10</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: C</b><br>
+                    <b>Analisis Soal:</b> Mencari semua faktor persekutuan dari dua bilangan yang diberikan dalam bentuk faktorisasi prima.<br>
+                    <b>Konsep yang Digunakan:</b> Faktor persekutuan adalah semua faktor dari FPB kedua bilangan.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li>Hitung nilai A dan B: A = $4 \times 5 = 20$. B = $2 \times 3 \times 5 = 30$.</li>
+                        <li>Cari FPB dari 20 dan 30. FPB($2^2 \times 5$, $2 \times 3 \times 5$) = $2 \times 5 = 10$.</li>
+                        <li>Cari semua faktor dari FPB (yaitu 10): 1, 2, 5, 10.</li>
+                    </ol>
+                    <b>Kesimpulan:</b> Jadi, faktor persekutuan dari A dan B adalah 1, 2, 5, dan 10.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sulit</div>
+                    <b>15.</b> Manakah di bawah ini yang merupakan pasangan dua bilangan prima yang jika dijumlahkan hasilnya 24?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">5 dan 19</li>
+                        <li data-option="B">7 dan 17</li>
+                        <li data-option="C">11 dan 13</li>
+                        <li data-option="D" data-correct="true">Semua benar</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: D</b><br>
+                    <b>Analisis Soal:</b> Memeriksa setiap pasangan bilangan, apakah keduanya prima dan apakah jumlahnya 24.<br>
+                    <b>Konsep yang Digunakan:</b> Definisi bilangan prima.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ul style="padding-left: 15px;">
+                        <li><b>A:</b> 5 adalah prima, 19 adalah prima. $5 + 19 = 24$. (Benar)</li>
+                        <li><b>B:</b> 7 adalah prima, 17 adalah prima. $7 + 17 = 24$. (Benar)</li>
+                        <li><b>C:</b> 11 adalah prima, 13 adalah prima. $11 + 13 = 24$. (Benar)</li>
+                    </ul>
+                    <b>Kesimpulan:</b> Karena semua pilihan A, B, dan C memenuhi syarat, maka jawaban yang tepat adalah "Semua benar".
+                 </div>
+             </div>
         </div>
     </section>
 
@@ -362,41 +1106,459 @@
     <section id="bab3-latihan" class="page">
         <div class="content-wrapper">
              <h3>3.3 Latihan Soal: FPB & KPK</h3>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Mudah</div><b>1.</b> FPB dari 48 dan 72 adalah...<ol class="pilihan-ganda"><li data-option="A">12</li><li data-option="B">16</li><li data-option="C">24</li><li data-option="D">48</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Mudah</div><b>2.</b> KPK dari 20 dan 25 adalah...<ol class="pilihan-ganda"><li data-option="A">50</li><li data-option="B">75</li><li data-option="C">100</li><li data-option="D">125</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Mudah</div><b>3.</b> FPB dari 56 dan 84 adalah...<ol class="pilihan-ganda"><li data-option="A">14</li><li data-option="B">21</li><li data-option="C">28</li><li data-option="D">56</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Mudah</div><b>4.</b> KPK dari 18 dan 30 adalah...<ol class="pilihan-ganda"><li data-option="A">60</li><li data-option="B">90</li><li data-option="C">120</li><li data-option="D">180</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>5.</b> FPB dari 27, 45, dan 63 adalah...<ol class="pilihan-ganda"><li data-option="A">3</li><li data-option="B">7</li><li data-option="C">9</li><li data-option="D">1</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>6.</b> KPK dari 8, 12, dan 18 adalah...<ol class="pilihan-ganda"><li data-option="A">36</li><li data-option="B">48</li><li data-option="C">72</li><li data-option="D">96</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>7.</b> Jika A = $2^3 \times 5$ dan B = $2^2 \times 3 \times 5$, maka FPB dan KPK dari A dan B adalah...<ol class="pilihan-ganda"><li data-option="A">FPB=20, KPK=60</li><li data-option="B">FPB=40, KPK=120</li><li data-option="C">FPB=20, KPK=120</li><li data-option="D">FPB=10, KPK=60</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>8.</b> FPB dari 150 dan 200 adalah...<ol class="pilihan-ganda"><li data-option="A">25</li><li data-option="B">50</li><li data-option="C">75</li><li data-option="D">100</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>9.</b> KPK dari 40 dan 50 adalah...<ol class="pilihan-ganda"><li data-option="A">100</li><li data-option="B">150</li><li data-option="C">200</li><li data-option="D">400</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit | Soal Cerita</div><b>10.</b> Terdapat 64 buku cerita dan 80 buku pelajaran yang akan dimasukkan ke dalam kardus. Setiap kardus berisi jenis buku dengan jumlah yang sama. Berapa kardus paling banyak yang dibutuhkan?<ol class="pilihan-ganda"><li data-option="A">8</li><li data-option="B">12</li><li data-option="C">16</li><li data-option="D">20</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit | Soal Cerita</div><b>11.</b> Alarm A berbunyi setiap 30 menit, alarm B setiap 45 menit. Jika keduanya berbunyi bersamaan pukul 10.00, pukul berapa keduanya berbunyi bersamaan lagi?<ol class="pilihan-ganda"><li data-option="A">11.00</li><li data-option="B">11.15</li><li data-option="C">11.30</li><li data-option="D">12.00</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit | Soal Cerita</div><b>12.</b> Sebuah agen akan mengirimkan 3 jenis barang dengan berat 36 kg, 48 kg, dan 72 kg. Jika setiap paket memiliki berat yang sama dan seberat mungkin, berapa berat setiap paket?<ol class="pilihan-ganda"><li data-option="A">6 kg</li><li data-option="B">12 kg</li><li data-option="C">18 kg</li><li data-option="D">24 kg</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit | Soal Cerita</div><b>13.</b> Karina, Desi, dan Melati les biola. Karina berlatih setiap 2 hari, Desi setiap 3 hari, dan Melati setiap 4 hari. Jika pada 5 Mei mereka berlatih bersama, tanggal berapa mereka akan berlatih bersama lagi?<ol class="pilihan-ganda"><li data-option="A">15 Mei</li><li data-option="B">17 Mei</li><li data-option="C">19 Mei</li><li data-option="D">21 Mei</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>14.</b> Diketahui FPB dari X dan 18 adalah 6, dan KPK dari X dan 18 adalah 36. Tentukan nilai X.<ol class="pilihan-ganda"><li data-option="A">6</li><li data-option="B">12</li><li data-option="C">18</li><li data-option="D">24</li></ol></div><div class="coret-coret"></div></div>
-             <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>15.</b> Bilangan terkecil yang habis dibagi oleh 12 dan 20 adalah...<ol class="pilihan-ganda"><li data-option="A">30</li><li data-option="B">40</li><li data-option="C">60</li><li data-option="D">120</li></ol></div><div class="coret-coret"></div></div>
-        </div>
-    </section>
-
-    <section id="pembahasan" class="page">
-        <div class="content-wrapper">
-            <h2>Bab 4: Kunci Jawaban & Pembahasan</h2>
-            <h3>Pembahasan Latihan Bab 1: Kelipatan</h3>
-            <div class="pembahasan"><b>1. Jawaban: B</b><b>Pembahasan:</b> $5 \times 5 = 25$. 30 tidak termasuk karena pertanyaannya "kurang dari".<br><b>2. Jawaban: B</b><b>Pembahasan:</b> $12 \times 1=12, 12 \times 2=24, 12 \times 3=36$.<br><b>3. Jawaban: C</b><b>Pembahasan:</b> Kelipatan 4 adalah 4, 8, 12, 16, 20, 24, ...<br><b>4. Jawaban: A</b><b>Pembahasan:</b> Ya, karena $91 \div 7 = 13$ tanpa sisa.<br><b>5. Jawaban: A</b><b>Pembahasan:</b> KPK dari 3 dan 5 adalah 15. Kelipatan persekutuannya adalah kelipatan dari 15, yaitu 15, 30, 45.<br><b>6. Jawaban: C</b><b>Pembahasan:</b> $15 \times 4=60, 15 \times 5=75, 15 \times 6=90$.<br><b>7. Jawaban: C</b><b>Pembahasan:</b> 144 habis dibagi oleh 6, 8, 9, dan 12.<br><b>8. Jawaban: B</b><b>Pembahasan:</b> Kelipatan 8: 8,16,24,32,40. Kelipatan 10: 10,20,30,40. KPK=40.<br><b>9. Jawaban: C</b><b>Pembahasan:</b> KPK dari 6 dan 9 adalah 18. Dua kelipatan persekutuan pertamanya adalah 18 dan 36.<br><b>10. Jawaban: B</b><b>Pembahasan:</b> Bilangannya adalah 14, 21, 28, 35, 42, 49, 56. Total ada 7 bilangan.<br><b>11. Jawaban: B</b><b>Pembahasan:</b> KPK(4,6) = 12. 12 hari setelah 1 Jan adalah 13 Jan. 12 hari setelah 13 Jan adalah 25 Jan.<br><b>12. Jawaban: B</b><b>Pembahasan:</b> KPK(10,15) = 30. Mereka berbunyi bersama 30 menit setelah pukul 08.00, yaitu pukul 08.30.<br><b>13. Jawaban: C</b><b>Pembahasan:</b> Kursi pertama yang memiliki dua bantal adalah KPK dari 3 dan 4, yaitu 12.<br><b>14. Jawaban: B</b><b>Pembahasan:</b> Bilangan tersebut adalah (KPK dari 2,3,4) + 1 = 12 + 1 = 13.<br><b>15. Jawaban: C</b><b>Pembahasan:</b> Kelipatan 8 antara 1 dan 50 adalah 8, 16, 24, 32, 40, 48. Jumlahnya adalah 168.</div>
-            
-            <h3>Pembahasan Latihan Bab 2: Faktor</h3>
-             <div class="pembahasan"><b>1. Jawaban: A</b><b>Pembahasan:</b> Pasangan perkalian 36: (1,36), (2,18), (3,12), (4,9), (6,6).<br><b>2. Jawaban: B</b><b>Pembahasan:</b> Faktor 45 adalah 1, 3, 5, 9, 15, 45, yang semuanya ganjil.<br><b>3. Jawaban: C</b><b>Pembahasan:</b> Bilangan prima adalah bilangan yang hanya punya 2 faktor. 1 hanya punya 1 faktor, 9 punya 3 faktor.<br><b>4. Jawaban: B</b><b>Pembahasan:</b> Tidak, karena 108 dibagi 8 adalah 13,5 (tidak habis).<br><b>5. Jawaban: B</b><b>Pembahasan:</b> $150 = 10 \times 15 = (2 \times 5) \times (3 \times 5) = 2 \times 3 \times 5^2$.<br><b>6. Jawaban: A</b><b>Pembahasan:</b> Faktor 40: 1, 2, 4, 5, 8, 10, 20, 40. Faktor 50: 1, 2, 5, 10, 25, 50. Persekutuan: 1, 2, 5, 10.<br><b>7. Jawaban: B</b><b>Pembahasan:</b> $70 = 2 \times 35 = 2 \times 5 \times 7$. Faktor primanya 2, 5, dan 7.<br><b>8. Jawaban: C</b><b>Pembahasan:</b> Faktor 100: 1, 2, 4, 5, 10, 20, 25, 50, 100. Total ada 9 faktor.<br><b>9. Jawaban: B</b><b>Pembahasan:</b> Faktor 28: 1, 2, 4, 7, 14, 28. Faktor 42: 1, 2, 3, 6, 7, 14, 21, 42. Terbesar adalah 14.<br><b>10. Jawaban: C</b><b>Pembahasan:</b> 27 bukan kuadrat prima ($3^3$). Yang lain adalah kuadrat dari bilangan prima ($2^2, 3^2, 5^2$).<br><b>11. Jawaban: C</b><b>Pembahasan:</b> Soal ini mencari FPB dari 32 dan 48, yaitu 16. Jadi 16 halaman.<br><b>12. Jawaban: B</b><b>Pembahasan:</b> Pertanyaan ini menanyakan semua pasangan faktor dari 60.<br><b>13. Jawaban: A</b><b>Pembahasan:</b> Soal ini menanyakan faktor persekutuan dari 24 dan 30, yaitu 1, 2, 3, 6.<br><b>14. Jawaban: C</b><b>Pembahasan:</b> A = 20, B = 30. Faktor persekutuan dari 20 dan 30 adalah 1, 2, 5, 10.<br><b>15. Jawaban: D</b><b>Pembahasan:</b> $5+19=24$, $7+17=24$, $11+13=24$. Semuanya benar.</div>
-
-            <h3>Pembahasan Latihan Bab 3: FPB & KPK</h3>
-             <div class="pembahasan"><b>1. Jawaban: C</b><b>Pembahasan:</b> $48 = 2^4 \times 3$; $72 = 2^3 \times 3^2$. FPB = $2^3 \times 3 = 24$.<br><b>2. Jawaban: C</b><b>Pembahasan:</b> $20 = 2^2 \times 5$; $25 = 5^2$. KPK = $2^2 \times 5^2 = 100$.<br><b>3. Jawaban: C</b><b>Pembahasan:</b> $56=2^3 \times 7$; $84 = 2^2 \times 3 \times 7$. FPB = $2^2 \times 7 = 28$.<br><b>4. Jawaban: B</b><b>Pembahasan:</b> $18 = 2 \times 3^2$; $30 = 2 \times 3 \times 5$. KPK = $2 \times 3^2 \times 5 = 90$.<br><b>5. Jawaban: C</b><b>Pembahasan:</b> $27=3^3$; $45=3^2 \times 5$; $63=3^2 \times 7$. FPB = $3^2 = 9$.<br><b>6. Jawaban: C</b><b>Pembahasan:</b> $8=2^3$; $12=2^2 \times 3$; $18=2 \times 3^2$. KPK = $2^3 \times 3^2 = 72$.<br><b>7. Jawaban: C</b><b>Pembahasan:</b> FPB = $2^2 \times 5 = 20$. KPK = $2^3 \times 3 \times 5 = 120$.<br><b>8. Jawaban: B</b><b>Pembahasan:</b> $150=2 \times 3 \times 5^2$; $200=2^3 \times 5^2$. FPB = $2 \times 5^2 = 50$.<br><b>9. Jawaban: C</b><b>Pembahasan:</b> $40=2^3 \times 5$; $50=2 \times 5^2$. KPK = $2^3 \times 5^2 = 200$.<br><b>10. Jawaban: C</b><b>Pembahasan:</b> Kata kunci "paling banyak" artinya FPB. FPB(64, 80) = 16.<br><b>11. Jawaban: C</b><b>Pembahasan:</b> Kata kunci "bersamaan lagi" artinya KPK. KPK(30, 45) = 90 menit = 1 jam 30 menit. Pukul 10.00 + 1 jam 30 menit = 11.30.<br><b>12. Jawaban: B</b><b>Pembahasan:</b> Kata kunci "seberat mungkin" artinya FPB. FPB(36, 48, 72) = 12 kg.<br><b>13. Jawaban: B</b><b>Pembahasan:</b> Kata kunci "bersama lagi" artinya KPK. KPK(2, 3, 4) = 12. 12 hari setelah 5 Mei adalah 17 Mei.<br><b>14. Jawaban: B</b><b>Pembahasan:</b> Rumus: Bil1 × Bil2 = FPB × KPK. Maka X × 18 = 6 × 36. X = 216 / 18 = 12.<br><b>15. Jawaban: C</b><b>Pembahasan:</b> Kata kunci "bilangan terkecil yang habis dibagi" artinya KPK. KPK(12, 20) = 60.</div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Mudah</div>
+                    <b>1.</b> FPB dari 48 dan 72 adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">12</li>
+                        <li data-option="B">16</li>
+                        <li data-option="C" data-correct="true">24</li>
+                        <li data-option="D">48</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: C</b><br>
+                    <b>Analisis Soal:</b> Mencari Faktor Persekutuan Terbesar dari 48 dan 72.<br>
+                    <b>Konsep yang Digunakan:</b> Mencari FPB menggunakan faktorisasi prima.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li>Faktorisasi prima 48: $48 = 16 \times 3 = 2^4 \times 3$.</li>
+                        <li>Faktorisasi prima 72: $72 = 8 \times 9 = 2^3 \times 3^2$.</li>
+                        <li>Ambil faktor yang sama (2 dan 3) dengan pangkat terkecil: $2^3$ dan $3^1$.</li>
+                        <li>FPB = $2^3 \times 3 = 8 \times 3 = 24$.</li>
+                    </ol>
+                    <b>Kesimpulan:</b> FPB dari 48 dan 72 adalah 24.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Mudah</div>
+                    <b>2.</b> KPK dari 20 dan 25 adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">50</li>
+                        <li data-option="B">75</li>
+                        <li data-option="C" data-correct="true">100</li>
+                        <li data-option="D">125</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: C</b><br>
+                    <b>Analisis Soal:</b> Mencari Kelipatan Persekutuan Terkecil dari 20 dan 25.<br>
+                    <b>Konsep yang Digunakan:</b> Mencari KPK menggunakan faktorisasi prima.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li>Faktorisasi prima 20: $20 = 4 \times 5 = 2^2 \times 5$.</li>
+                        <li>Faktorisasi prima 25: $25 = 5^2$.</li>
+                        <li>Ambil semua faktor (2 dan 5) dengan pangkat terbesar: $2^2$ dan $5^2$.</li>
+                        <li>KPK = $2^2 \times 5^2 = 4 \times 25 = 100$.</li>
+                    </ol>
+                    <b>Kesimpulan:</b> KPK dari 20 dan 25 adalah 100.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Mudah</div>
+                    <b>3.</b> FPB dari 56 dan 84 adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">14</li>
+                        <li data-option="B">21</li>
+                        <li data-option="C" data-correct="true">28</li>
+                        <li data-option="D">56</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: C</b><br>
+                    <b>Analisis Soal:</b> Mencari FPB dari 56 dan 84.<br>
+                    <b>Konsep yang Digunakan:</b> Mencari FPB menggunakan faktorisasi prima.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li>Faktorisasi prima 56: $56 = 8 \times 7 = 2^3 \times 7$.</li>
+                        <li>Faktorisasi prima 84: $84 = 4 \times 21 = 2^2 \times 3 \times 7$.</li>
+                        <li>Ambil faktor yang sama (2 dan 7) dengan pangkat terkecil: $2^2$ dan $7^1$.</li>
+                        <li>FPB = $2^2 \times 7 = 4 \times 7 = 28$.</li>
+                    </ol>
+                    <b>Kesimpulan:</b> FPB dari 56 dan 84 adalah 28.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Mudah</div>
+                    <b>4.</b> KPK dari 18 dan 30 adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">60</li>
+                        <li data-option="B" data-correct="true">90</li>
+                        <li data-option="C">120</li>
+                        <li data-option="D">180</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: B</b><br>
+                    <b>Analisis Soal:</b> Mencari KPK dari 18 dan 30.<br>
+                    <b>Konsep yang Digunakan:</b> Mencari KPK menggunakan faktorisasi prima.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li>Faktorisasi prima 18: $18 = 2 \times 9 = 2 \times 3^2$.</li>
+                        <li>Faktorisasi prima 30: $30 = 3 \times 10 = 2 \times 3 \times 5$.</li>
+                        <li>Ambil semua faktor (2, 3, 5) dengan pangkat terbesar: $2^1, 3^2, 5^1$.</li>
+                        <li>KPK = $2 \times 3^2 \times 5 = 2 \times 9 \times 5 = 90$.</li>
+                    </ol>
+                    <b>Kesimpulan:</b> KPK dari 18 dan 30 adalah 90.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sedang</div>
+                    <b>5.</b> FPB dari 27, 45, dan 63 adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">3</li>
+                        <li data-option="B">7</li>
+                        <li data-option="C" data-correct="true">9</li>
+                        <li data-option="D">1</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: C</b><br>
+                    <b>Analisis Soal:</b> Mencari FPB dari tiga bilangan: 27, 45, dan 63.<br>
+                    <b>Konsep yang Digunakan:</b> Mencari FPB menggunakan faktorisasi prima.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li>Faktorisasi prima 27: $3^3$.</li>
+                        <li>Faktorisasi prima 45: $9 \times 5 = 3^2 \times 5$.</li>
+                        <li>Faktorisasi prima 63: $9 \times 7 = 3^2 \times 7$.</li>
+                        <li>Ambil faktor yang sama pada KETIGA bilangan (hanya 3) dengan pangkat terkecil: $3^2$.</li>
+                        <li>FPB = $3^2 = 9$.</li>
+                    </ol>
+                    <b>Kesimpulan:</b> FPB dari 27, 45, dan 63 adalah 9.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sedang</div>
+                    <b>6.</b> KPK dari 8, 12, dan 18 adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">36</li>
+                        <li data-option="B">48</li>
+                        <li data-option="C" data-correct="true">72</li>
+                        <li data-option="D">96</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                     <b>Jawaban: C</b><br>
+                    <b>Analisis Soal:</b> Mencari KPK dari tiga bilangan: 8, 12, dan 18.<br>
+                    <b>Konsep yang Digunakan:</b> Mencari KPK menggunakan faktorisasi prima.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li>Faktorisasi prima 8: $2^3$.</li>
+                        <li>Faktorisasi prima 12: $4 \times 3 = 2^2 \times 3$.</li>
+                        <li>Faktorisasi prima 18: $2 \times 9 = 2 \times 3^2$.</li>
+                        <li>Ambil semua faktor (2 dan 3) dengan pangkat terbesar: $2^3$ dan $3^2$.</li>
+                        <li>KPK = $2^3 \times 3^2 = 8 \times 9 = 72$.</li>
+                    </ol>
+                    <b>Kesimpulan:</b> KPK dari 8, 12, dan 18 adalah 72.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sedang</div>
+                    <b>7.</b> Jika A = $2^3 \times 5$ dan B = $2^2 \times 3 \times 5$, maka FPB dan KPK dari A dan B adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">FPB=20, KPK=60</li>
+                        <li data-option="B">FPB=40, KPK=120</li>
+                        <li data-option="C" data-correct="true">FPB=20, KPK=120</li>
+                        <li data-option="D">FPB=10, KPK=60</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: C</b><br>
+                    <b>Analisis Soal:</b> Mencari FPB dan KPK dari bilangan yang sudah dalam bentuk faktorisasi prima.<br>
+                    <b>Konsep yang Digunakan:</b> Aturan FPB dan KPK pada faktorisasi prima.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li><b>FPB:</b> Ambil faktor yang sama ($2, 5$) dengan pangkat terkecil ($2^2, 5^1$). FPB = $2^2 \times 5 = 4 \times 5 = 20$.</li>
+                        <li><b>KPK:</b> Ambil semua faktor ($2, 3, 5$) dengan pangkat terbesar ($2^3, 3^1, 5^1$). KPK = $2^3 \times 3 \times 5 = 8 \times 3 \times 5 = 120$.</li>
+                    </ol>
+                    <b>Kesimpulan:</b> FPB adalah 20 dan KPK adalah 120.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sedang</div>
+                    <b>8.</b> FPB dari 150 dan 200 adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">25</li>
+                        <li data-option="B" data-correct="true">50</li>
+                        <li data-option="C">75</li>
+                        <li data-option="D">100</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: B</b><br>
+                    <b>Analisis Soal:</b> Mencari FPB dari 150 dan 200.<br>
+                    <b>Konsep yang Digunakan:</b> Mencari FPB menggunakan faktorisasi prima.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li>Faktorisasi prima 150: $10 \times 15 = (2 \times 5) \times (3 \times 5) = 2 \times 3 \times 5^2$.</li>
+                        <li>Faktorisasi prima 200: $2 \times 100 = 2 \times 10^2 = 2 \times (2 \times 5)^2 = 2 \times 2^2 \times 5^2 = 2^3 \times 5^2$.</li>
+                        <li>Ambil faktor yang sama (2 dan 5) dengan pangkat terkecil: $2^1$ dan $5^2$.</li>
+                        <li>FPB = $2 \times 5^2 = 2 \times 25 = 50$.</li>
+                    </ol>
+                    <b>Kesimpulan:</b> FPB dari 150 dan 200 adalah 50.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sedang</div>
+                    <b>9.</b> KPK dari 40 dan 50 adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">100</li>
+                        <li data-option="B">150</li>
+                        <li data-option="C" data-correct="true">200</li>
+                        <li data-option="D">400</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: C</b><br>
+                    <b>Analisis Soal:</b> Mencari KPK dari 40 dan 50.<br>
+                    <b>Konsep yang Digunakan:</b> Mencari KPK menggunakan faktorisasi prima.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li>Faktorisasi prima 40: $8 \times 5 = 2^3 \times 5$.</li>
+                        <li>Faktorisasi prima 50: $2 \times 25 = 2 \times 5^2$.</li>
+                        <li>Ambil semua faktor (2 dan 5) dengan pangkat terbesar: $2^3$ dan $5^2$.</li>
+                        <li>KPK = $2^3 \times 5^2 = 8 \times 25 = 200$.</li>
+                    </ol>
+                    <b>Kesimpulan:</b> KPK dari 40 dan 50 adalah 200.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sulit | Soal Cerita</div>
+                    <b>10.</b> Terdapat 64 buku cerita dan 80 buku pelajaran yang akan dimasukkan ke dalam kardus. Setiap kardus berisi jenis buku dengan jumlah yang sama. Berapa kardus paling banyak yang dibutuhkan?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">8</li>
+                        <li data-option="B">12</li>
+                        <li data-option="C" data-correct="true">16</li>
+                        <li data-option="D">20</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: C</b><br>
+                    <b>Analisis Soal:</b> Membagi dua jenis barang (buku) ke dalam kelompok (kardus) dengan jumlah yang sama dan "paling banyak".<br>
+                    <b>Konsep yang Digunakan:</b> Kata kunci "paling banyak" dan "jumlah yang sama" menunjukkan kita harus mencari FPB.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li>Faktorisasi prima 64: $2^6$.</li>
+                        <li>Faktorisasi prima 80: $16 \times 5 = 2^4 \times 5$.</li>
+                        <li>FPB diambil dari faktor yang sama (yaitu 2) dengan pangkat terkecil: $2^4 = 16$.</li>
+                    </ol>
+                    <b>Kesimpulan:</b> Jumlah kardus paling banyak yang dibutuhkan adalah 16.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sulit | Soal Cerita</div>
+                    <b>11.</b> Alarm A berbunyi setiap 30 menit, alarm B setiap 45 menit. Jika keduanya berbunyi bersamaan pukul 10.00, pukul berapa keduanya berbunyi bersamaan lagi?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">11.00</li>
+                        <li data-option="B">11.15</li>
+                        <li data-option="C" data-correct="true">11.30</li>
+                        <li data-option="D">12.00</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: C</b><br>
+                    <b>Analisis Soal:</b> Mencari kapan dua kejadian periodik terjadi "bersamaan lagi".<br>
+                    <b>Konsep yang Digunakan:</b> Mencari KPK dari interval waktu (30 dan 45 menit).<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li>Faktorisasi prima 30: $2 \times 3 \times 5$.</li>
+                        <li>Faktorisasi prima 45: $9 \times 5 = 3^2 \times 5$.</li>
+                        <li>KPK diambil dari semua faktor (2, 3, 5) dengan pangkat terbesar: $2^1, 3^2, 5^1$.</li>
+                        <li>KPK = $2 \times 3^2 \times 5 = 2 \times 9 \times 5 = 90$ menit.</li>
+                        <li>90 menit sama dengan 1 jam 30 menit.</li>
+                        <li>Waktu berikutnya = Pukul 10.00 + 1 jam 30 menit = Pukul 11.30.</li>
+                    </ol>
+                    <b>Kesimpulan:</b> Keduanya akan berbunyi bersamaan lagi pada pukul 11.30.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sulit | Soal Cerita</div>
+                    <b>12.</b> Sebuah agen akan mengirimkan 3 jenis barang dengan berat 36 kg, 48 kg, dan 72 kg. Jika setiap paket memiliki berat yang sama dan seberat mungkin, berapa berat setiap paket?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">6 kg</li>
+                        <li data-option="B" data-correct="true">12 kg</li>
+                        <li data-option="C">18 kg</li>
+                        <li data-option="D">24 kg</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: B</b><br>
+                    <b>Analisis Soal:</b> Membagi beberapa jumlah (berat) menjadi bagian-bagian yang "sama berat" dan "seberat mungkin".<br>
+                    <b>Konsep yang Digunakan:</b> Kata kunci "sama" dan "seberat mungkin" (paling besar) menunjukkan kita harus mencari FPB.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li>Faktorisasi prima 36: $4 \times 9 = 2^2 \times 3^2$.</li>
+                        <li>Faktorisasi prima 48: $16 \times 3 = 2^4 \times 3$.</li>
+                        <li>Faktorisasi prima 72: $8 \times 9 = 2^3 \times 3^2$.</li>
+                        <li>FPB diambil dari faktor yang sama (2 dan 3) dengan pangkat terkecil: $2^2$ dan $3^1$.</li>
+                        <li>FPB = $2^2 \times 3 = 4 \times 3 = 12$.</li>
+                    </ol>
+                    <b>Kesimpulan:</b> Berat setiap paket adalah 12 kg.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sulit | Soal Cerita</div>
+                    <b>13.</b> Karina, Desi, dan Melati les biola. Karina berlatih setiap 2 hari, Desi setiap 3 hari, dan Melati setiap 4 hari. Jika pada 5 Mei mereka berlatih bersama, tanggal berapa mereka akan berlatih bersama lagi?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">15 Mei</li>
+                        <li data-option="B" data-correct="true">17 Mei</li>
+                        <li data-option="C">19 Mei</li>
+                        <li data-option="D">21 Mei</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                     <b>Jawaban: B</b><br>
+                    <b>Analisis Soal:</b> Mencari kapan tiga jadwal periodik yang berbeda akan terjadi "bersama lagi".<br>
+                    <b>Konsep yang Digunakan:</b> Mencari KPK dari interval waktu (2, 3, dan 4 hari).<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li>Cari KPK dari 2, 3, dan 4.</li>
+                        <li>Faktorisasi prima: $2=2; 3=3; 4=2^2$.</li>
+                        <li>KPK diambil dari semua faktor (2 dan 3) dengan pangkat terbesar: $2^2$ dan $3^1$.</li>
+                        <li>KPK = $2^2 \times 3 = 4 \times 3 = 12$ hari.</li>
+                        <li>Tanggal berikutnya = 5 Mei + 12 hari = 17 Mei.</li>
+                    </ol>
+                    <b>Kesimpulan:</b> Mereka akan berlatih bersama lagi pada tanggal 17 Mei.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sulit</div>
+                    <b>14.</b> Diketahui FPB dari X dan 18 adalah 6, dan KPK dari X dan 18 adalah 36. Tentukan nilai X.
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">6</li>
+                        <li data-option="B" data-correct="true">12</li>
+                        <li data-option="C">18</li>
+                        <li data-option="D">24</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                    <b>Jawaban: B</b><br>
+                    <b>Analisis Soal:</b> Mencari sebuah bilangan jika diketahui FPB dan KPK-nya dengan bilangan lain.<br>
+                    <b>Konsep yang Digunakan:</b> Rumus hubungan FPB dan KPK: $Bilangan 1 \times Bilangan 2 = FPB \times KPK$.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li>Masukkan angka ke dalam rumus: $X \times 18 = 6 \times 36$.</li>
+                        <li>$X \times 18 = 216$.</li>
+                        <li>$X = 216 \div 18$.</li>
+                        <li>$X = 12$.</li>
+                    </ol>
+                    <b>Kesimpulan:</b> Nilai X adalah 12.
+                 </div>
+             </div>
+             <div class="latihan-item">
+                 <div class="soal-latihan">
+                    <div class="keterangan-soal">Level: Sulit</div>
+                    <b>15.</b> Bilangan terkecil yang habis dibagi oleh 12 dan 20 adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">30</li>
+                        <li data-option="B">40</li>
+                        <li data-option="C" data-correct="true">60</li>
+                        <li data-option="D">120</li>
+                    </ol>
+                    <span class="lihat-pembahasan">Lihat Pembahasan</span>
+                 </div>
+                 <div class="pembahasan" style="display: none;">
+                     <b>Jawaban: C</b><br>
+                    <b>Analisis Soal:</b> "Bilangan terkecil yang habis dibagi oleh..." adalah definisi langsung dari Kelipatan Persekutuan Terkecil.<br>
+                    <b>Konsep yang Digunakan:</b> Mencari KPK dari 12 dan 20.<br>
+                    <b>Langkah-langkah Pengerjaan:</b>
+                    <ol style="padding-left: 15px;">
+                        <li>Faktorisasi prima 12: $4 \times 3 = 2^2 \times 3$.</li>
+                        <li>Faktorisasi prima 20: $4 \times 5 = 2^2 \times 5$.</li>
+                        <li>Ambil semua faktor (2, 3, 5) dengan pangkat terbesar: $2^2, 3^1, 5^1$.</li>
+                        <li>KPK = $2^2 \times 3 \times 5 = 4 \times 3 \times 5 = 60$.</li>
+                    </ol>
+                    <b>Kesimpulan:</b> Bilangan terkecil yang habis dibagi 12 dan 20 adalah 60.
+                 </div>
+             </div>
         </div>
     </section>
 
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const allOptionsLists = document.querySelectorAll('.pilihan-ganda');
 
+        allOptionsLists.forEach(optionsList => {
+            const options = optionsList.querySelectorAll('li');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+                    if (option.dataset.correct === 'true') {
+                        option.classList.add('correct');
+                    } else {
+                        option.classList.add('incorrect');
+                        const correctOption = optionsList.querySelector('[data-correct="true"]');
+                        if (correctOption) {
+                            correctOption.classList.add('correct');
+                        }
+                    }
+                });
+            });
+        });
+
+        const showPembahasanLinks = document.querySelectorAll('.lihat-pembahasan');
+        showPembahasanLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                const latihanItem = this.closest('.latihan-item');
+                const pembahasanDiv = latihanItem.querySelector('.pembahasan');
+                const optionsList = latihanItem.querySelector('.pilihan-ganda');
+
+                const isVisible = pembahasanDiv.style.display === 'block';
+
+                if (!isVisible) {
+                    // Tampilkan pembahasan
+                    pembahasanDiv.style.display = 'block';
+                    this.textContent = 'Tutup Pembahasan';
+                    
+                    // Tandai jawaban benar dan nonaktifkan pilihan jika belum dijawab
+                    if (!optionsList.classList.contains('answered')) {
+                        optionsList.classList.add('answered');
+                        const correctOption = optionsList.querySelector('[data-correct="true"]');
+                        if (correctOption) {
+                            correctOption.classList.add('correct');
+                        }
+                    }
+                } else {
+                    // Sembunyikan pembahasan
+                    pembahasanDiv.style.display = 'none';
+                    this.textContent = 'Lihat Pembahasan';
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
-
 
