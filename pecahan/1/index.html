@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Belajar - Pecahan & Persentase</title>
+    <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #333333;
+            --secondary-text: #555555;
+            --border-color: #dddddd;
+            --title-grad-1: #4a4a4a;
+            --title-grad-2: #000000;
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            font-size: 10pt;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            counter-reset: page;
+        }
+
+        .page {
+            background: white;
+            width: 176mm;
+            min-height: 250mm;
+            padding: 20mm;
+            margin: 1cm auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page::after {
+            counter-increment: page;
+            content: counter(page);
+            position: absolute;
+            bottom: 15mm;
+            right: 20mm;
+            font-size: 10pt;
+            color: #888;
+        }
+
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 3px solid #444;
+            height: 250mm;
+        }
+        
+        .cover-page::after, .toc-page::after {
+            content: ''; /* No page number on cover and TOC */
+        }
+
+        .cover-page img {
+            max-width: 300px; /* Logo enlarged */
+            margin-bottom: 40px;
+        }
+
+        .cover-page .title {
+            font-size: 38pt; /* Title adjusted */
+            font-weight: 900;
+            margin: 0;
+            color: var(--title-grad-2);
+            background: -webkit-linear-gradient(45deg, var(--title-grad-1), var(--title-grad-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .cover-page .subtitle {
+            font-size: 18pt; /* Subtitle enlarged */
+            margin-top: 15px;
+            color: var(--secondary-text);
+            font-weight: 700;
+        }
+
+        @media print {
+            body {
+                background: none;
+            }
+            .page {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+        }
+        
+        .watermark-container .page::before {
+            content: '';
+            background-image: url('https://imgix3.ruangguru.com/assets/miscellaneous/png_tiy3nf_6017.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 12cm;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            opacity: 0.08;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .cover-page::before, .toc-page::before {
+            opacity: 0; /* No watermark on cover and TOC */
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 24pt;
+            text-align: center;
+            border-bottom: 2px solid var(--primary-text);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 18pt;
+            color: #000;
+            border-left: 5px solid #555;
+            padding-left: 10px;
+            margin-top: 0;
+        }
+        
+        h3 {
+            font-size: 14pt;
+            color: #222;
+            margin-top: 30px;
+            font-weight: 700;
+        }
+
+        h4 {
+            font-size: 12pt;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .toc-list { list-style-type: none; padding: 0; }
+        .toc-list li { margin-bottom: 10px; font-size: 12pt; }
+        .toc-list a { text-decoration: none; color: var(--primary-text); }
+        .toc-list a:hover { text-decoration: underline; }
+        
+        .layout-1-kolom { columns: 1; }
+        .layout-latihan { display: flex; flex-direction: column; gap: 20px; }
+        .latihan-item { display: grid; grid-template-columns: 1fr 0.8fr; gap: 20px; border-top: 1px dashed var(--border-color); padding-top: 15px; margin-top: 15px; }
+
+        .soal-item, .soal-latihan {
+             margin-bottom: 20px;
+             break-inside: avoid;
+             overflow-wrap: break-word; /* Prevents overflow */
+             word-wrap: break-word; /* Prevents overflow */
+        }
+
+        .pilihan-ganda-container {
+             padding-left: 0px; 
+        }
+        
+        .pembahasan { background-color: #f9f9f9; border: 1px solid var(--border-color); padding: 15px; border-radius: 5px; margin-top: 10px; margin-bottom: 15px;}
+        
+        .kumpulan-pembahasan h3{ text-align: center; }
+
+        .coret-coret {
+            border: 1px dashed #c0c0c0;
+            min-height: 200px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        ol { padding-left: 0; }
+        ol.pilihan-ganda { list-style-type: none; }
+        ol.pilihan-ganda li { margin-bottom: 8px; }
+        ol.pilihan-ganda li::before {
+            content: attr(data-option) ". ";
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .kecukupan-data-stmt {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .keterangan-soal { font-style: italic; font-size: 9pt; color: var(--secondary-text); margin-bottom: 5px; }
+
+        table.soal-kategori { width:100%; border-collapse: collapse; text-align: left;}
+        table.soal-kategori th, table.soal-kategori td { padding: 8px; border: 1px solid #ccc; }
+        table.soal-kategori th:not(:first-child) { text-align: center; width: 50px;}
+        table.soal-kategori td:not(:first-child) { text-align: center; vertical-align: middle; }
+    </style>
+</head>
+<body>
+
+<div class="watermark-container">
+
+    <!-- Cover Page -->
+    <section class="page cover-page">
+        <div class="content-wrapper">
+            <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_tiy3nf_6017.png" alt="Math Specialist Logo">
+            <h1 class="title">PECAHAN & PERSENTASE</h1>
+            <p class="subtitle">Mengubah Bentuk dan Operasi Dasar</p>
+        </div>
+    </section>
+
+    <!-- Table of Contents -->
+    <section class="page toc-page">
+        <div class="content-wrapper">
+            <h1>Daftar Isi</h1>
+            <ul class="toc-list">
+                <li><a href="#topik-pecahan-persen">Topik: Pecahan & Persentase</a></li>
+                <li><a href="#materi-singkat">&nbsp;&nbsp;&nbsp;› Materi Singkat</a></li>
+                <li><a href="#latihan-soal">&nbsp;&nbsp;&nbsp;› Latihan Soal Mandiri</a></li>
+                <li><a href="#pembahasan-latihan">&nbsp;&nbsp;&nbsp;› Kunci Jawaban & Pembahasan Latihan</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Topik: Pecahan & Persentase -->
+    <section id="topik-pecahan-persen" class="page">
+      <div class="content-wrapper">
+        <h2 id="materi-singkat">Topik: Pecahan & Persentase</h2>
+        <h3>1. Materi Singkat</h3>
+        <div class="layout-1-kolom">
+            <h4>Bentuk Pecahan, Desimal, dan Persen</h4>
+            <p>Pecahan, desimal, dan persen adalah tiga cara berbeda untuk menyatakan nilai yang tidak utuh (atau bagian dari keseluruhan).</p>
+            <ul>
+                <li><b>Pecahan:</b> Ditulis sebagai $\frac{a}{b}$, di mana $a$ adalah <b>pembilang</b> (bagian yang diambil) dan $b$ adalah <b>penyebut</b> (total bagian). Contoh: $\frac{1}{2}$ (satu dari dua bagian).</li>
+                <li><b>Desimal:</b> Bentuk pecahan persepuluhan, perseratusan, perseribuan, dst., yang ditulis menggunakan koma (,). Contoh: $\frac{1}{2} = 0,5$.</li>
+                <li><b>Persen:</b> Bentuk pecahan perseratus. Lambangnya adalah %. Contoh: $\frac{1}{2} = \frac{50}{100} = 50\%$.</li>
+            </ul>
+
+            <h4>Mengubah Bentuk</h4>
+            <b>1. Pecahan ke Desimal</b>
+            <br>Cara 1: Bagi pembilang dengan penyebut. $\frac{3}{4} = 3 \div 4 = 0,75$.
+            <br>Cara 2: Ubah penyebut menjadi 10, 100, 1000, dst. $\frac{3}{4} = \frac{3 \times 25}{4 \times 25} = \frac{75}{100} = 0,75$.
+            <br><br>
+            
+            <b>2. Desimal ke Persen</b>
+            <br>Kalikan dengan 100% (atau geser koma dua kali ke kanan).
+            <br>$0,75 = 0,75 \times 100\% = 75\%$.
+            <br>$0,8 = 0,80 = 80\%$.
+            <br><br>
+
+            <b>3. Persen ke Pecahan</b>
+            <br>Ubah menjadi pecahan per 100, lalu sederhanakan.
+            <br>$75\% = \frac{75}{100} = \frac{75 \div 25}{100 \div 25} = \frac{3}{4}$.
+            <br><br>
+
+            <b>4. Pecahan ke Persen</b>
+            <br>Ubah penyebut menjadi 100.
+            <br>$\frac{2}{5} = \frac{2 \times 20}{5 \times 20} = \frac{40}{100} = 40\%$.
+            <br><br>
+
+            <h4>Operasi Pecahan</h4>
+            <b>Penjumlahan dan Pengurangan</b>
+            <p>Syaratnya adalah <b>penyebut harus sama</b>. Jika belum sama, cari KPK (Kelipatan Persekutuan Terkecil) dari penyebut-penyebut tersebut untuk dijadikan penyebut yang baru (penyebut persekutuan).</p>
+            <b>Contoh:</b> $\frac{1}{3} + \frac{1}{2}$
+            <br>KPK dari 3 dan 2 adalah 6.
+            <br>$\frac{1}{3} = \frac{1 \times 2}{3 \times 2} = \frac{2}{6}$
+            <br>$\frac{1}{2} = \frac{1 \times 3}{2 \times 3} = \frac{3}{6}$
+            <br>Maka, $\frac{2}{6} + \frac{3}{6} = \frac{2+3}{6} = \frac{5}{6}$.
+        </div>
+      </div>
+    </section>
+    
+    <section id="latihan-soal" class="page">
+        <div class="content-wrapper">
+            <h3>2. Latihan Soal</h3>
+            <p>Kerjakan soal-soal berikut. Gunakan kolom di sebelah kanan untuk corat-coret.</p>
+            <h4>Level Sedang</h4>
+            <div class="layout-latihan">
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>1.</b> Bentuk persen dari $\frac{2}{5}$ adalah... <div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$20\%$</li><li data-option="B">$25\%$</li><li data-option="C">$40\%$</li><li data-option="D">$50\%$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>2.</b> Bentuk pecahan paling sederhana dari $0,65$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$\frac{65}{100}$</li><li data-option="B">$\frac{13}{20}$</li><li data-option="C">$\frac{6}{5}$</li><li data-option="D">$\frac{3}{5}$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>3.</b> Bentuk desimal dari $35\%$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$35,0$</li><li data-option="B">$3,5$</li><li data-option="C">$0,035$</li><li data-option="D">$0,35$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>4.</b> Pecahan $\frac{3}{4}$ senilai dengan $\frac{a}{28}$. Nilai $a$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$7$</li><li data-option="B">$12$</li><li data-option="C">$21$</li><li data-option="D">$24$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>5.</b> Tanda yang tepat untuk membandingkan $\frac{3}{5}$ ... $70\%$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$<$</li><li data-option="B">$>$</li><li data-option="C">$=$</li><li data-option="D">$\le$</li></ol></div></div><div class="coret-coret"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="layout-latihan">
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>6.</b> Tanda yang tepat untuk membandingkan $0,25$ ... $\frac{1}{3}$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$<$</li><li data-option="B">$>$</li><li data-option="C">$=$</li><li data-option="D">$\ge$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>7.</b> Urutan dari yang terkecil untuk $\frac{1}{2}$; $60\%$; $0,55$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$0,55$; $60\%$; $\frac{1}{2}$</li><li data-option="B">$\frac{1}{2}$; $0,55$; $60\%$</li><li data-option="C">$60\%$; $0,55$; $\frac{1}{2}$</li><li data-option="D">$\frac{1}{2}$; $60\%$; $0,55$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>8.</b> Hasil dari $\frac{1}{3} + \frac{1}{6}$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$\frac{1}{9}$</li><li data-option="B">$\frac{2}{9}$</li><li data-option="C">$\frac{1}{2}$</li><li data-option="D">$\frac{2}{3}$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>9.</b> Hasil dari $\frac{7}{10} - \frac{3}{10}$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$\frac{4}{10}$</li><li data-option="B">$\frac{2}{5}$</li><li data-option="C">A dan B benar</li><li data-option="D">$\frac{1}{2}$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>10.</b> Hasil dari $\frac{3}{4} - \frac{1}{8}$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$\frac{2}{4}$</li><li data-option="B">$\frac{1}{2}$</li><li data-option="C">$\frac{5}{8}$</li><li data-option="D">$\frac{7}{8}$</li></ol></div></div><div class="coret-coret"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="layout-latihan">
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>11.</b> Di keranjang ada 8 kelereng merah dan 12 kelereng biru. Pecahan yang menyatakan banyaknya kelereng merah dari seluruh kelereng adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$\frac{8}{12}$</li><li data-option="B">$\frac{2}{3}$</li><li data-option="C">$\frac{12}{20}$</li><li data-option="D">$\frac{2}{5}$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>12.</b> Nilai $20\%$ dari $150$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$15$</li><li data-option="B">$20$</li><li data-option="C">$30$</li><li data-option="D">$50$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>13.</b> Sebuah papan persegi 10x10 memiliki 42 kotak yang diarsir. Bentuk desimal untuk bagian yang diarsir adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$0,042$</li><li data-option="B">$0,42$</li><li data-option="C">$4,2$</li><li data-option="D">$42,0$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>14.</b> Ayah membagi cokelat batangan menjadi 8 bagian sama besar. Rina mengambil 5 bagian. Pecahan yang menyatakan bagian Rina adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$\frac{3}{8}$</li><li data-option="B">$\frac{5}{8}$</li><li data-option="C">$\frac{3}{5}$</li><li data-option="D">$\frac{5}{3}$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sedang</div><b>15.</b> $45\%$ dari $200$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$45$</li><li data-option="B">$60$</li><li data-option="C">$75$</li><li data-option="D">$90$</li></ol></div></div><div class="coret-coret"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+            <h4>Level Sulit</h4>
+            <div class="layout-latihan">
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>16.</b> Hasil dari $1\frac{1}{2} + 2\frac{1}{4}$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$3\frac{1}{4}$</li><li data-option="B">$3\frac{2}{6}$</li><li data-option="C">$3\frac{3}{4}$</li><li data-option="D">$4\frac{1}{4}$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>17.</b> Hasil dari $3\frac{1}{3} - 1\frac{1}{6}$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$2\frac{1}{6}$</li><li data-option="B">$2\frac{0}{3}$</li><li data-option="C">$1\frac{1}{2}$</li><li data-option="D">$2\frac{1}{3}$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>18.</b> Ibu memiliki $2\frac{1}{2}$ kg terigu. Ibu menggunakan $1\frac{1}{4}$ kg untuk membuat kue. Kemudian, Ibu membeli lagi $\frac{1}{2}$ kg. Berapa kg terigu Ibu sekarang?<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$1\frac{1}{4}$</li><li data-option="B">$1\frac{1}{2}$</li><li data-option="C">$1\frac{3}{4}$</li><li data-option="D">$2\frac{1}{4}$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>19.</b> Harga sebuah buku Rp 50.000. Buku itu mendapat diskon $10\%$. Berapa harga buku setelah didiskon?<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">Rp 40.000</li><li data-option="B">Rp 45.000</li><li data-option="C">Rp 5.000</li><li data-option="D">Rp 55.000</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>20.</b> Di sebuah kelas, $12$ siswa adalah perempuan. Jumlah siswa perempuan adalah $30\%$ dari total siswa. Berapa jumlah seluruh siswa di kelas itu?<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$30$</li><li data-option="B">$36$</li><li data-option="C">$40$</li><li data-option="D">$50$</li></ol></div></div><div class="coret-coret"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="layout-latihan">
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>21.</b> Tanda yang tepat untuk membandingkan $\frac{4}{7}$ ... $55\%$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$<$</li><li data-option="B">$>$</li><li data-option="C">$=$</li><li data-option="D">$\le$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>22.</b> Urutan dari yang terbesar: $\frac{5}{8}$; $0,6$; $65\%$; $\frac{2}{3}$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$\frac{2}{3}$; $65\%$; $\frac{5}{8}$; $0,6$</li><li data-option="B">$\frac{2}{3}$; $\frac{5}{8}$; $65\%$; $0,6$</li><li data-option="C">$65\%$; $\frac{5}{8}$; $\frac{2}{3}$; $0,6$</li><li data-option="D">$0,6$; $\frac{5}{8}$; $65\%$; $\frac{2}{3}$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>23.</b> $\frac{3}{5}$ dari $200$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$100$</li><li data-option="B">$120$</li><li data-option="C">$150$</li><li data-option="D">$160$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>24.</b> Masih ada $\frac{1}{2}$ bagian kue. Budi memakan $\frac{1}{3}$ dari sisa kue tersebut. Berapa bagian dari *seluruh* kue yang Budi makan?<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$\frac{1}{6}$</li><li data-option="B">$\frac{1}{5}$</li><li data-option="C">$\frac{1}{3}$</li><li data-option="D">$\frac{1}{2}$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>25.</b> Ada 200 apel. $10\%$ apel busuk. Dari apel yang bagus, $25\%$ dijual. Berapa banyak apel yang dijual?<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$20$</li><li data-option="B">$45$</li><li data-option="C">$50$</li><li data-option="D">$180$</li></ol></div></div><div class="coret-coret"></div></div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="page">
+        <div class="content-wrapper">
+            <div class="layout-latihan">
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>26.</b> Hasil dari $\frac{1}{4} + \frac{2}{5}$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$\frac{3}{9}$</li><li data-option="B">$\frac{3}{20}$</li><li data-option="C">$\frac{13}{20}$</li><li data-option="D">$\frac{8}{20}$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>27.</b> Hasil dari $\frac{5}{6} - \frac{2}{9}$ adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$\frac{3}{3}$</li><li data-option="B">$\frac{3}{18}$</li><li data-option="C">$\frac{11}{18}$</li><li data-option="D">$\frac{19}{18}$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>28.</b> Bentuk pecahan paling sederhana dari $0,666...$ (6 berulang) adalah...<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$\frac{6}{10}$</li><li data-option="B">$\frac{66}{100}$</li><li data-option="C">$\frac{2}{3}$</li><li data-option="D">$\frac{3}{4}$</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>29.</b> Setelah membelanjakan $\frac{3}{5}$ dari uangnya, Ali masih memiliki Rp 40.000. Berapa uang Ali mula-mula?<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">Rp 60.000</li><li data-option="B">Rp 80.000</li><li data-option="C">Rp 100.000</li><li data-option="D">Rp 120.000</li></ol></div></div><div class="coret-coret"></div></div>
+                <div class="latihan-item"><div class="soal-latihan"><div class="keterangan-soal">Level: Sulit</div><b>30.</b> Diagram lingkaran menunjukkan $25\%$ siswa berjalan kaki, $50\%$ naik bus, dan sisanya naik mobil. Jika 10 siswa berjalan kaki, berapa banyak siswa yang naik bus?<div class="pilihan-ganda-container"><ol class="pilihan-ganda"><li data-option="A">$10$</li><li data-option="B">$20$</li><li data-option="C">$25$</li><li data-option="D">$50$</li></ol></div></div><div class="coret-coret"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pembahasan-latihan" class="page">
+        <div class="content-wrapper kumpulan-pembahasan">
+            <h3>Kunci Jawaban dan Pembahasan Latihan Soal</h3>
+            <h4>Level Sedang</h4>
+            <div class="pembahasan"><b>1. Jawaban: C</b><br><b>Pembahasan:</b> Untuk mengubah pecahan ke persen, ubah penyebut menjadi 100. $\frac{2}{5} = \frac{2 \times 20}{5 \times 20} = \frac{40}{100} = 40\%$.</div>
+            <div class="pembahasan"><b>2. Jawaban: B</b><br><b>Pembahasan:</b> $0,65 = \frac{65}{100}$. Sederhanakan dengan membagi pembilang dan penyebut dengan 5. $\frac{65 \div 5}{100 \div 5} = \frac{13}{20}$.</div>
+            <div class="pembahasan"><b>3. Jawaban: D</b><br><b>Pembahasan:</b> $35\% = \frac{35}{100} = 0,35$.</div>
+            <div class="pembahasan"><b>4. Jawaban: C</b><br><b>Pembahasan:</b> Penyebut 4 menjadi 28 dikalikan 7. Maka pembilang juga harus dikali 7. $3 \times 7 = 21$. Jadi $a=21$.</div>
+            <div class="pembahasan"><b>5. Jawaban: A</b><br><b>Pembahasan:</b> Ubah keduanya ke bentuk yang sama. $\frac{3}{5} = \frac{3 \times 20}{5 \times 20} = \frac{60}{100} = 60\%$. Jelas bahwa $60\% < 70\%$.</div>
+            <div class="pembahasan"><b>6. Jawaban: A</b><br><b>Pembahasan:</b> Ubah ke desimal. $0,25$. Dan $\frac{1}{3} = 1 \div 3 = 0,333...$. Jelas bahwa $0,25 < 0,333...$.</div>
+            <div class="pembahasan"><b>7. Jawaban: B</b><br><b>Pembahasan:</b> Ubah semua ke desimal: $\frac{1}{2} = 0,50$; $60\% = 0,60$; $0,55 = 0,55$. Urutan terkecil: $0,50$; $0,55$; $0,60$. Yaitu: $\frac{1}{2}$; $0,55$; $60\%$.</div>
+            <div class="pembahasan"><b>8. Jawaban: C</b><br><b>Pembahasan:</b> Samakan penyebut (KPK 3 dan 6 adalah 6). $\frac{1}{3} + \frac{1}{6} = \frac{2}{6} + \frac{1}{6} = \frac{3}{6} = \frac{1}{2}$.</div>
+            <div class="pembahasan"><b>9. Jawaban: C</b><br><b>Pembahasan:</b> Penyebut sudah sama. $\frac{7}{10} - \frac{3}{10} = \frac{4}{10}$. Pecahan $\frac{4}{10}$ disederhanakan (dibagi 2) menjadi $\frac{2}{5}$. Maka jawaban A dan B keduanya benar.</div>
+            <div class="pembahasan"><b>10. Jawaban: C</b><br><b>Pembahasan:</b> Samakan penyebut (KPK 4 dan 8 adalah 8). $\frac{3}{4} - \frac{1}{8} = \frac{6}{8} - \frac{1}{8} = \frac{5}{8}$.</div>
+            <div class="pembahasan"><b>11. Jawaban: D</b><br><b>Pembahasan:</b> Total kelereng = 8 (merah) + 12 (biru) = 20. Pecahan merah = $\frac{Jumlah Merah}{Total} = \frac{8}{20}$. Sederhanakan (dibagi 4) = $\frac{2}{5}$.</div>
+            <div class="pembahasan"><b>12. Jawaban: C</b><br><b>Pembahasan:</b> $20\%$ dari $150 = \frac{20}{100} \times 150 = \frac{1}{5} \times 150 = 30$.</div>
+            <div class="pembahasan"><b>13. Jawaban: B</b><br><b>Pembahasan:</b> Papan 10x10 memiliki 100 kotak. 42 diarsir berarti pecahannya $\frac{42}{100}$. Bentuk desimalnya adalah $0,42$.</div>
+            <div class="pembahasan"><b>14. Jawaban: B</b><br><b>Pembahasan:</b> Total bagian ada 8 (penyebut). Rina mengambil 5 (pembilang). Pecahannya adalah $\frac{5}{8}$.</div>
+            <div class="pembahasan"><b>15. Jawaban: D</b><br><b>Pembahasan:</b> $45\%$ dari $200 = \frac{45}{100} \times 200 = 45 \times 2 = 90$.</div>
+        </div>
+    </section>
+    
+    <section class="page">
+        <div class="content-wrapper kumpulan-pembahasan">
+            <h4>Level Sulit</h4>
+            <div class="pembahasan"><b>16. Jawaban: C</b><br><b>Pembahasan:</b> Jumlahkan bilangan bulat: $1+2=3$. Jumlahkan pecahan: $\frac{1}{2} + \frac{1}{4} = \frac{2}{4} + \frac{1}{4} = \frac{3}{4}$. Gabungkan: $3 + \frac{3}{4} = 3\frac{3}{4}$.</div>
+            <div class="pembahasan"><b>17. Jawaban: A</b><br><b>Pembahasan:</b> Ubah ke pecahan biasa: $3\frac{1}{3} = \frac{10}{3}$ dan $1\frac{1}{6} = \frac{7}{6}$. Samakan penyebut: $\frac{10}{3} - \frac{7}{6} = \frac{20}{6} - \frac{7}{6} = \frac{13}{6}$. Ubah kembali: $\frac{13}{6} = 2\frac{1}{6}$.</div>
+            <div class="pembahasan"><b>18. Jawaban: C</b><br><b>Pembahasan:</b> Kalimat matematika: $2\frac{1}{2} - 1\frac{1}{4} + \frac{1}{2}$. Kerjakan urut: $2\frac{2}{4} - 1\frac{1}{4} = 1\frac{1}{4}$. Lalu $1\frac{1}{4} + \frac{1}{2} = 1\frac{1}{4} + \frac{2}{4} = 1\frac{3}{4}$ kg.</div>
+            <div class="pembahasan"><b>19. Jawaban: B</b><br><b>Pembahasan:</b> Besar diskon = $10\%$ dari Rp 50.000 = $\frac{10}{100} \times 50.000 = \text{Rp } 5.000$. Harga baru = Harga Awal - Diskon = $50.000 - 5.000 = \text{Rp } 45.000$.</div>
+            <div class="pembahasan"><b>20. Jawaban: C</b><br><b>Pembahasan:</b> $30\%$ dari Total Siswa = 12. $\frac{30}{100} \times \text{Total} = 12$. $\text{Total} = 12 \times \frac{100}{30} = 12 \times \frac{10}{3} = 4 \times 10 = 40$ siswa.</div>
+            <div class="pembahasan"><b>21. Jawaban: B</b><br><b>Pembahasan:</b> Ubah $\frac{4}{7}$ ke desimal: $4 \div 7 \approx 0,571...$. Ubah $55\%$ ke desimal: $0,55$. Karena $0,571... > 0,55$, maka $\frac{4}{7} > 55\%$.</div>
+            <div class="pembahasan"><b>22. Jawaban: A</b><br><b>Pembahasan:</b> Ubah semua ke desimal: $\frac{5}{8} = 0,625$; $0,6 = 0,600$; $65\% = 0,650$; $\frac{2}{3} \approx 0,667$. Urutan terbesar: $0,667$; $0,650$; $0,625$; $0,600$. Yaitu: $\frac{2}{3}$; $65\%$; $\frac{5}{8}$; $0,6$.</div>
+            <div class="pembahasan"><b>23. Jawaban: B</b><br><b>Pembahasan:</b> $\frac{3}{5} \times 200 = 3 \times (\frac{200}{5}) = 3 \times 40 = 120$.</div>
+            <div class="pembahasan"><b>24. Jawaban: A</b><br><b>Pembahasan:</b> Sisa kue adalah $\frac{1}{2}$. Budi makan $\frac{1}{3}$ *dari* sisa. "Dari" berarti kali. Bagian Budi = $\frac{1}{3} \times \frac{1}{2} = \frac{1}{6}$ dari total kue.</div>
+            <div class="pembahasan"><b>25. Jawaban: B</b><br><b>Pembahasan:</b> 1. Apel busuk = $10\%$ dari $200 = \frac{10}{100} \times 200 = 20$ apel. 2. Apel bagus = $200 - 20 = 180$ apel. 3. Dijual = $25\%$ dari apel bagus = $25\%$ dari $180 = \frac{1}{4} \times 180 = 45$ apel.</div>
+            <div class="pembahasan"><b>26. Jawaban: C</b><br><b>Pembahasan:</b> KPK dari 4 dan 5 adalah 20. $\frac{1}{4} + \frac{2}{5} = \frac{1 \times 5}{20} + \frac{2 \times 4}{20} = \frac{5}{20} + \frac{8}{20} = \frac{13}{20}$.</div>
+            <div class="pembahasan"><b>27. Jawaban: C</b><br><b>Pembahasan:</b> KPK dari 6 dan 9 adalah 18. $\frac{5}{6} - \frac{2}{9} = \frac{5 \times 3}{18} - \frac{2 \times 2}{18} = \frac{15}{18} - \frac{4}{18} = \frac{11}{18}$.</div>
+            <div class="pembahasan"><b>28. Jawaban: C</b><br><b>Pembahasan:</b> $0,666...$ adalah bentuk desimal berulang dari $\frac{2}{3}$. (Cara lain: Misal $x = 0,666...$. Maka $10x = 6,666...$. Kurangkan: $10x - x = 6,666... - 0,666... \implies 9x = 6 \implies x = \frac{6}{9} = \frac{2}{3}$).</div>
+            <div class="pembahasan"><b>29. Jawaban: C</b><br><b>Pembahasan:</b> Ali membelanjakan $\frac{3}{5}$, jadi sisa uangnya adalah $1 - \frac{3}{5} = \frac{2}{5}$ bagian. $\frac{2}{5}$ bagian = Rp 40.000. $\frac{1}{5}$ bagian = Rp 40.000 $\div 2 = $ Rp 20.000. Uang mula-mula ($\frac{5}{5}$ bagian) = $5 \times$ Rp 20.000 = Rp 100.000.</div>
+            <div class="pembahasan"><b>30. Jawaban: B</b><br><b>Pembahasan:</b> Diketahui $25\%$ (jalan kaki) = 10 siswa. Yang ditanya adalah $50\%$ (naik bus). Karena $50\%$ adalah dua kali lipat dari $25\%$, maka jumlah siswa naik bus = $2 \times 10 = 20$ siswa.</div>
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>
